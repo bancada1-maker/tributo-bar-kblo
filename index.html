@@ -137,7 +137,7 @@
 
         .player-top {
             max-width: 600px;
-            margin: 0 auto 40px;
+            margin: 0 auto 20px;
             background: rgba(255,255,255,0.1);
             backdrop-filter: blur(10px);
             border-radius: 60px;
@@ -147,6 +147,19 @@
 
         .player-top audio {
             width: 100%;
+        }
+
+        .musica-legenda {
+            text-align: center;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .musica-legenda i {
+            color: #667eea;
+            margin-right: 8px;
         }
 
         .section {
@@ -209,6 +222,20 @@
         button:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .aviso-responsabilidade {
+            font-size: 12px;
+            color: rgba(255,255,255,0.4);
+            text-align: center;
+            margin-top: 15px;
+            padding: 10px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .aviso-responsabilidade i {
+            margin-right: 5px;
+            color: #f39c12;
         }
 
         .fotos-grid {
@@ -329,7 +356,6 @@
             color: #667eea;
         }
 
-        /* Modal de Login */
         .modal {
             display: none;
             position: fixed;
@@ -374,7 +400,6 @@
             flex: 1;
         }
 
-        /* Login banner dentro da seção fotos */
         .login-banner {
             background: linear-gradient(135deg, rgba(102,126,234,0.2), rgba(118,75,162,0.2));
             border-radius: 20px;
@@ -439,7 +464,6 @@
         </div>
     </nav>
 
-    <!-- Modal de Login -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <h3>🔐 Login para enviar fotos</h3>
@@ -466,6 +490,9 @@
                     Coloque o arquivo musica.mp3
                 </audio>
             </div>
+            <div class="musica-legenda">
+                <i class="fas fa-music"></i> Esta música foi composta especialmente em homenagem ao Bar do Kblo, para eternizar os bons momentos e as histórias vividas neste lugar tão especial.
+            </div>
             <p>Um lugar que marcou nossas vidas • Memórias eternas</p>
         </div>
     </section>
@@ -478,12 +505,10 @@
         </div>
     </section>
 
-    <!-- Seção DEPOIMENTOS com formulário para enviar -->
     <section id="depoimentos" class="section">
         <h2 class="section-title">💬 Depoimentos</h2>
         <p class="section-subtitle">Compartilhe sua história - sem necessidade de cadastro</p>
         
-        <!-- Formulário de Depoimento -->
         <div class="form-card" style="margin-bottom: 50px;">
             <h3 style="margin-bottom: 20px;">📝 Deixe seu depoimento</h3>
             <div id="msgSucessoDepoimento" class="mensagem-sucesso">✅ Depoimento enviado com sucesso!</div>
@@ -496,25 +521,21 @@
             <button onclick="enviarDepoimento()">✉️ ENVIAR DEPOIMENTO</button>
         </div>
         
-        <!-- Lista de Depoimentos -->
         <div id="listaDepoimentos">
             <div class="loading">Carregando depoimentos...</div>
         </div>
     </section>
 
-    <!-- Seção FOTOS -->
     <section id="fotos" class="section">
         <h2 class="section-title">📸 Mural de Fotos</h2>
         <p class="section-subtitle">Compartilhe suas recordações do Bar do Kblo</p>
         
-        <!-- Área de Login dentro da seção Fotos -->
         <div id="loginBanner" class="login-banner">
             <p>🔐 <strong>Envie suas fotos</strong></p>
             <p>Faça login ou crie uma conta para compartilhar suas recordações</p>
             <button class="btn-login" onclick="abrirModal()" style="margin-top: 10px;">Entrar / Cadastrar</button>
         </div>
         
-        <!-- Área de upload (só aparece logado) -->
         <div id="uploadFotoSection" style="display: none;">
             <div class="form-card" style="margin-bottom: 40px;">
                 <h3 style="margin-bottom: 20px;">📤 Enviar nova foto</h3>
@@ -522,10 +543,12 @@
                     <input type="file" id="fotoFile" accept="image/*">
                 </div>
                 <button onclick="enviarFoto()">📸 ENVIAR FOTO</button>
+                <div class="aviso-responsabilidade">
+                    <i class="fas fa-exclamation-triangle"></i> Cada pessoa é responsável pelo que publica. Fotos requerem login para maior segurança.
+                </div>
             </div>
         </div>
         
-        <!-- Informação de usuário logado -->
         <div id="userInfoBanner" style="display: none; text-align: center; margin-bottom: 20px; padding: 10px; background: rgba(102,126,234,0.2); border-radius: 30px;">
             <span id="userEmailDisplay"></span>
         </div>
@@ -552,14 +575,12 @@
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         let usuarioAtual = null;
 
-        // Verificar usuário logado
         async function verificarUsuario() {
             const { data: { user } } = await supabaseClient.auth.getUser();
             usuarioAtual = user;
             atualizarInterface();
         }
 
-        // Atualizar interface baseado no login
         function atualizarInterface() {
             const authSection = document.getElementById('authSection');
             const uploadSection = document.getElementById('uploadFotoSection');
@@ -588,7 +609,6 @@
             }
         }
 
-        // Abrir modal
         function abrirModal() {
             document.getElementById('loginModal').classList.add('active');
         }
@@ -597,7 +617,6 @@
             document.getElementById('loginModal').classList.remove('active');
         }
 
-        // Login
         async function fazerLogin() {
             const email = document.getElementById('loginEmail').value;
             const senha = document.getElementById('loginPassword').value;
@@ -615,7 +634,6 @@
             }
         }
 
-        // Cadastro
         async function fazerCadastro() {
             const email = document.getElementById('loginEmail').value;
             const senha = document.getElementById('loginPassword').value;
@@ -632,14 +650,12 @@
             }
         }
 
-        // Logout
         async function fazerLogout() {
             await supabaseClient.auth.signOut();
             await verificarUsuario();
             carregarFotos();
         }
 
-        // Enviar Depoimento (sem login)
         async function enviarDepoimento() {
             const nome = document.getElementById('nomeDepoimento').value.trim();
             const depoimento = document.getElementById('textoDepoimento').value.trim();
@@ -665,7 +681,6 @@
             }
         }
 
-        // Carregar Depoimentos
         async function carregarDepoimentos() {
             const { data, error } = await supabaseClient
                 .from('depoimentos')
@@ -697,7 +712,6 @@
             `;
         }
 
-        // Carregar Fotos
         async function carregarFotos() {
             const { data, error } = await supabaseClient
                 .from('fotos')
@@ -732,7 +746,6 @@
             `;
         }
 
-        // Enviar Foto (requer login)
         async function enviarFoto() {
             if (!usuarioAtual) {
                 alert('Faça login para enviar fotos');
@@ -765,17 +778,20 @@
                 
                 const foto_url = publicUrl.publicUrl;
                 
-                await supabaseClient
+                const { error: insertError } = await supabaseClient
                     .from('fotos')
                     .insert([{ nome, user_email: usuarioAtual.email, foto_url, aprovado: true }]);
                 
-                document.getElementById('fotoFile').value = '';
-                carregarFotos();
-                alert('Foto enviada com sucesso!');
+                if (insertError) {
+                    alert('Erro ao salvar: ' + insertError.message);
+                } else {
+                    document.getElementById('fotoFile').value = '';
+                    carregarFotos();
+                    alert('Foto enviada com sucesso!');
+                }
             }
         }
 
-        // Deletar Foto
         async function deletarFoto(id) {
             if (confirm('Tem certeza que quer deletar esta foto?')) {
                 await supabaseClient.from('fotos').delete().eq('id', id);
@@ -799,7 +815,6 @@
             window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent('Tributo ao Bar do Kblo')}&url=${encodeURIComponent(window.location.href)}`, '_blank');
         }
 
-        // Inicializar
         verificarUsuario();
         carregarDepoimentos();
         carregarFotos();
