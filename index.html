@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tributo ao Bar do Kblo</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 { color: #764ba2; text-align: center; }
+        h2 { color: #667eea; text-align: center; font-size: 18px; margin-bottom: 20px; }
+        .imagem-bar { text-align: center; margin: 20px 0; background: #f0f0f0; padding: 40px; border-radius: 15px; }
+        .imagem-bar img { max-width: 100%; border-radius: 15px; max-height: 400px; }
+        .player-musica {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .player-musica h3 { color: white; margin-bottom: 15px; }
+        .player-musica audio { width: 100%; max-width: 400px; }
+        .aviso { background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; border-radius: 8px; margin: 20px 0; }
+        .form-depoimento { background: #f8f9fa; padding: 20px; border-radius: 15px; margin: 30px 0; }
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        textarea { min-height: 100px; }
+        button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+        .depoimento-item { background: white; border: 1px solid #e0e0e0; border-radius: 10px; padding: 15px; margin: 15px 0; }
+        .depoimento-nome { color: #764ba2; font-weight: bold; }
+        .mensagem-sucesso { background: #d4edda; color: #155724; padding: 10px; border-radius: 8px; display: none; margin: 10px 0; }
+        .btn-share { display: inline-block; margin: 5px; padding: 10px 20px; border-radius: 25px; color: white; text-decoration: none; cursor: pointer; }
+        .btn-share:nth-child(1) { background: #1877f2; }
+        .btn-share:nth-child(2) { background: #25d366; }
+        .btn-share:nth-child(3) { background: #1da1f2; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎉 Tributo ao Bar do Kblo 🎉</h1>
+        <h2>Um lugar que marcou nossas vidas</h2>
+        
+        <div class="imagem-bar">
+            <img src="bar.png" alt="Bar do Kblo" onerror="this.style.display='none'; this.parentElement.innerHTML='<span>🍺🎸🎵</span><p><strong>Bar do Kblo</strong><br>(Adicione a foto bar.png na pasta)</p>'">
+        </div>
+        
+        <div class="player-musica">
+            <h3>🎵 Música em homenagem ao Bar do Kblo 🎵</h3>
+            <audio controls>
+                <source src="musica.mp3" type="audio/mpeg">
+                Coloque o arquivo musica.mp3 na mesma pasta
+            </audio>
+        </div>
+        
+        <p>O Bar do Kblo fechou as portas, mas as memórias permanecem. Este é um espaço para celebrar os bons momentos, histórias e amizades que aconteceram entre essas paredes.</p>
+        
+        <div class="aviso">
+            ⚠️ <strong>Aviso importante:</strong> Cada pessoa é responsável pelo que publica. Todos os depoimentos passam por moderação antes de serem exibidos.
+        </div>
+        
+        <div class="form-depoimento">
+            <h3>📝 Deixe seu depoimento</h3>
+            <div id="msgSucesso" class="mensagem-sucesso">✅ Depoimento enviado! Aguarde aprovação.</div>
+            <input type="text" id="nome" placeholder="Seu nome *">
+            <textarea id="depoimento" placeholder="Sua história, recordação ou homenagem ao Bar do Kblo *"></textarea>
+            <button id="btnEnviar">✉️ Enviar depoimento</button>
+        </div>
+        
+        <h3>💬 Depoimentos da comunidade</h3>
+        <div id="lista">Carregando depoimentos...</div>
+        
+        <div style="text-align: center; margin: 30px 0;">
+            <h4>Compartilhe este tributo:</h4>
+            <div class="btn-share" onclick="compartilharFacebook()">📘 Facebook</div>
+            <div class="btn-share" onclick="compartilharWhatsApp()">💚 WhatsApp</div>
+            <div class="btn-share" onclick="compartilharTwitter()">🐦 Twitter</div>
+        </div>
+    </div>
+
+    <script>
+        // CONFIGURAÇÕES DO SUPABASE
+        const SUPABASE_URL = 'https://dvpdypkfybnabaofcdse.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2cGR5cGtmeWJuYWJhb2ZjZHNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEyNzQyMjYsImV4cCI6MjA5Njg1MDIyNn0.NLOwSbfxvUOepNj5FUEjgBCoGYDgX5kfg44PZDuHXFY';
+        
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        
+        // Carregar depoimentos aprovados
+        async function carregarDepoimentos() {
+            const { data, error } = await supabaseClient
+                .from('depoimentos')
+                .select('*')
+                .eq('aprovado', true)
+                .order('criado_em', { ascending: false });
+            
+            const listaDiv = document.getElementById('lista');
+            
+            if (error) {
+                listaDiv.innerHTML = `<p>❌ Erro ao carregar: ${error.message}</p>`;
+                return;
+            }
+            
+            if (!data || data.length === 0) {
+                listaDiv.innerHTML = '<p>✨ Nenhum depoimento aprovado ainda. Seja o primeiro a deixar sua homenagem!</p>';
+                return;
+            }
+            
+            listaDiv.innerHTML = data.map(d => `
+                <div class="depoimento-item">
+                    <div class="depoimento-nome">⭐ ${d.nome}</div>
+                    <div>${d.depoimento}</div>
+                    <div style="font-size: 11px; color: #999; margin-top: 8px;">📅 ${new Date(d.criado_em).toLocaleDateString('pt-BR')}</div>
+                </div>
+            `).join('');
+        }
+        
+        // Enviar depoimento
+        async function enviarDepoimento() {
+            const nome = document.getElementById('nome').value.trim();
+            const depoimento = document.getElementById('depoimento').value.trim();
+            
+            if (!nome || !depoimento) {
+                alert('⚠️ Por favor, preencha seu nome e depoimento.');
+                return;
+            }
+            
+            const { error } = await supabaseClient
+                .from('depoimentos')
+                .insert([{ nome, depoimento, aprovado: false }]);
+            
+            if (error) {
+                alert('❌ Erro ao enviar: ' + error.message);
+            } else {
+                document.getElementById('nome').value = '';
+                document.getElementById('depoimento').value = '';
+                const msg = document.getElementById('msgSucesso');
+                msg.style.display = 'block';
+                setTimeout(() => { msg.style.display = 'none'; }, 3000);
+            }
+        }
+        
+        // Compartilhamento
+        function compartilharFacebook() {
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, '_blank');
+        }
+        
+        function compartilharWhatsApp() {
+            window.open(`https://wa.me/?text=${encodeURIComponent('Tributo ao Bar do Kblo - ' + window.location.href)}`, '_blank');
+        }
+        
+        function compartilharTwitter() {
+            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent('Tributo ao Bar do Kblo')}&url=${encodeURIComponent(window.location.href)}`, '_blank');
+        }
+        
+        // Inicializar
+        document.getElementById('btnEnviar').onclick = enviarDepoimento;
+        carregarDepoimentos();
+    </script>
+</body>
+</html>
