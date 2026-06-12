@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bar do Kblo - Tributo Oficial</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -16,9 +16,10 @@
 
         body {
             font-family: 'Montserrat', sans-serif;
-            background: #0a0a0a;
+            background: #07070a;
             color: #fff;
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
         .bg-gradient {
@@ -27,30 +28,32 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 50%, #0a0a0a 100%);
+            background: radial-gradient(circle at 50% 20%, rgba(102, 126, 234, 0.12) 0%, rgba(118, 75, 162, 0.08) 50%, #07070a 100%);
             z-index: -2;
         }
 
+        /* Navbar Corrigida */
         .navbar {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            padding: 20px 50px;
-            background: rgba(10, 10, 10, 0.95);
+            padding: 15px 40px;
+            background: rgba(7, 7, 10, 0.85);
             backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             z-index: 1000;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            flex-wrap: wrap;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
         }
 
         .logo {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #8a9eff, #a17fe0);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -58,25 +61,25 @@
 
         .logo span {
             color: #fff;
-            background: none;
         }
 
         .nav-links {
             display: flex;
-            gap: 40px;
+            gap: 30px;
             align-items: center;
-            flex-wrap: wrap;
         }
 
         .nav-links a {
-            color: #fff;
+            color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
             transition: all 0.3s ease;
         }
 
         .nav-links a:hover {
-            color: #667eea;
+            color: #8a9eff;
         }
 
         .user-info {
@@ -87,106 +90,205 @@
 
         .user-email {
             font-size: 12px;
-            color: #667eea;
-            max-width: 150px;
+            color: #8a9eff;
+            max-width: 120px;
             overflow: hidden;
             text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .btn-login {
             background: linear-gradient(135deg, #667eea, #764ba2);
-            padding: 8px 20px;
+            padding: 8px 22px;
             border-radius: 40px;
             border: none;
             color: white;
             cursor: pointer;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 13px;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn-login:hover {
+            opacity: 0.9;
         }
 
         .menu-toggle {
             display: none;
-            font-size: 28px;
+            font-size: 24px;
             cursor: pointer;
+            color: #fff;
         }
 
+        /* Hero com Enquadramento Premium */
         .hero {
-            min-height: 80vh;
+            min-height: 90vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 120px 20px 60px;
+            padding: 140px 24px 60px;
+        }
+
+        .hero-content {
+            max-width: 750px;
+            width: 100%;
         }
 
         .hero-content h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 5rem;
+            font-size: 4.2rem;
             font-weight: 900;
-            background: linear-gradient(135deg, #fff 0%, #667eea 50%, #764ba2 100%);
+            line-height: 1.15;
+            background: linear-gradient(135deg, #ffffff 20%, #8a9eff 60%, #a17fe0 100%);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 20px;
+            margin-bottom: 35px;
+            letter-spacing: -1px;
         }
 
-        .hero-content p {
-            font-size: 1.3rem;
-            color: rgba(255,255,255,0.7);
+        /* Novo Player Customizado (Estilo Spotify) */
+        .custom-player {
+            max-width: 500px;
+            margin: 0 auto 25px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 50px;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
-        .player-top {
-            max-width: 600px;
-            margin: 0 auto 20px;
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 60px;
-            padding: 15px 25px;
-            text-align: center;
+        .player-btn {
+            background: #fff;
+            color: #07070a;
+            border: none;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+            transition: transform 0.2s ease;
+            flex-shrink: 0;
         }
 
-        .player-top audio {
-            width: 100%;
+        .player-btn:hover {
+            transform: scale(1.05);
         }
 
-        .musica-legenda {
-            text-align: center;
-            font-size: 0.9rem;
+        .timeline-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-grow: 1;
+            font-size: 11px;
             color: rgba(255,255,255,0.5);
-            margin-bottom: 30px;
-            font-style: italic;
+        }
+
+        .player-slider {
+            flex-grow: 1;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 4px;
+            border-radius: 2px;
+            background: rgba(255,255,255,0.2);
+            outline: none;
+            cursor: pointer;
+        }
+
+        .player-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #8a9eff;
+            cursor: pointer;
+        }
+
+        .volume-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255,255,255,0.6);
+            font-size: 14px;
+        }
+
+        .volume-slider {
+            width: 60px;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 3px;
+            background: rgba(255,255,255,0.2);
+            outline: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #fff;
+        }
+
+        /* Legendas e Textos */
+        .musica-legenda {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 35px;
+            line-height: 1.7;
+            padding: 0 10px;
         }
 
         .musica-legenda i {
-            color: #667eea;
-            margin-right: 8px;
+            color: #8a9eff;
+            margin-right: 6px;
         }
 
+        .hero-content p.frase-efeito {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #8a9eff;
+            letter-spacing: 0.5px;
+        }
+
+        /* Seções Gerais */
         .section {
-            padding: 80px 50px;
-            max-width: 1200px;
+            padding: 90px 24px;
+            max-width: 1100px;
             margin: 0 auto;
         }
 
         .section-title {
             text-align: center;
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
         }
 
         .section-subtitle {
             text-align: center;
-            color: rgba(255,255,255,0.6);
+            color: rgba(255,255,255,0.5);
             margin-bottom: 50px;
+            font-size: 0.95rem;
         }
 
-        .form-card, .music-card, .login-card {
-            background: rgba(255,255,255,0.05);
+        /* Containers Estruturais */
+        .form-card, .testimonial-card, .foto-card, .login-banner {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
             backdrop-filter: blur(10px);
-            border-radius: 30px;
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 24px;
             padding: 40px;
-            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .form-group {
@@ -195,42 +297,46 @@
 
         .form-group input, .form-group textarea, .form-group input[type="file"] {
             width: 100%;
-            padding: 15px;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 15px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
             color: white;
             font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s;
         }
 
         .form-group input:focus, .form-group textarea:focus {
             outline: none;
             border-color: #667eea;
+            background: rgba(255, 255, 255, 0.08);
         }
 
-        button {
+        button.btn-primary {
             background: linear-gradient(135deg, #667eea, #764ba2);
-            padding: 14px 35px;
+            padding: 15px 35px;
             border-radius: 40px;
             color: white;
             font-weight: 600;
             border: none;
             cursor: pointer;
+            letter-spacing: 0.5px;
             transition: all 0.3s ease;
         }
 
-        button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        button.btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.25);
         }
 
         .aviso-responsabilidade {
-            font-size: 12px;
+            font-size: 11px;
             color: rgba(255,255,255,0.4);
             text-align: center;
-            margin-top: 15px;
-            padding: 10px;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.06);
         }
 
         .aviso-responsabilidade i {
@@ -238,124 +344,88 @@
             color: #f39c12;
         }
 
+        /* Grid de Fotos Inteligente */
         .fotos-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 25px;
             margin-top: 40px;
         }
 
         .foto-card {
-            background: rgba(255,255,255,0.05);
-            border-radius: 20px;
+            padding: 0;
             overflow: hidden;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
         }
 
         .foto-card:hover {
-            transform: translateY(-10px);
-            border-color: #667eea;
+            transform: translateY(-8px);
+            border-color: #8a9eff;
         }
 
         .foto-card img {
             width: 100%;
-            height: 250px;
+            height: 280px;
             object-fit: cover;
         }
 
         .foto-info {
-            padding: 15px;
+            padding: 20px;
         }
 
         .foto-nome {
             font-weight: 600;
-            color: #667eea;
+            color: #8a9eff;
         }
 
         .btn-delete {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(255,0,0,0.7);
+            top: 15px;
+            right: 15px;
+            background: rgba(217, 83, 79, 0.9);
+            color: #fff;
             border: none;
             border-radius: 50%;
-            width: 30px;
-            height: 30px;
+            width: 36px;
+            height: 36px;
             cursor: pointer;
-            font-size: 16px;
-            display: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s;
         }
 
         .foto-card:hover .btn-delete {
-            display: block;
+            opacity: 1;
         }
 
+        /* Grid de Depoimentos */
         .testimonials-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 25px;
         }
 
         .testimonial-card {
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 25px;
+            padding: 30px;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .testimonial-card:hover {
-            transform: translateY(-5px);
-            border-color: #667eea;
+            border-color: #8a9eff;
         }
 
         .testimonial-author {
             font-weight: 700;
-            color: #667eea;
-            margin-bottom: 10px;
+            color: #8a9eff;
+            margin-bottom: 12px;
+            font-size: 1rem;
         }
 
-        .mensagem-sucesso {
-            background: rgba(0,255,0,0.2);
-            padding: 15px;
-            border-radius: 15px;
-            display: none;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 40px;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 40px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            margin-top: 60px;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-
-        .social-links a {
-            color: white;
-            font-size: 24px;
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            color: #667eea;
-        }
-
+        /* Modais */
         .modal {
             display: none;
             position: fixed;
@@ -363,7 +433,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.8);
+            background: rgba(4, 4, 6, 0.85);
+            backdrop-filter: blur(8px);
             z-index: 2000;
             justify-content: center;
             align-items: center;
@@ -374,25 +445,24 @@
         }
 
         .modal-content {
-            background: #1a1a2e;
-            border-radius: 30px;
+            background: #111118;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
             padding: 40px;
-            max-width: 400px;
+            max-width: 420px;
             width: 90%;
         }
 
         .modal-content h3 {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             text-align: center;
-        }
-
-        .modal-content input {
-            margin-bottom: 15px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
         }
 
         .modal-buttons {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             margin-top: 20px;
         }
 
@@ -401,45 +471,105 @@
         }
 
         .login-banner {
-            background: linear-gradient(135deg, rgba(102,126,234,0.2), rgba(118,75,162,0.2));
-            border-radius: 20px;
-            padding: 30px;
             text-align: center;
-            margin-bottom: 30px;
-            border: 1px dashed #667eea;
+            border: 1px dashed rgba(138, 158, 255, 0.4);
+            background: rgba(102, 126, 234, 0.04);
+            padding: 35px;
         }
 
-        .login-banner p {
-            margin-bottom: 15px;
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 50px 24px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            margin-top: 80px;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.5);
         }
 
+        .social-links {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+
+        .social-links a {
+            color: rgba(255,255,255,0.6);
+            font-size: 22px;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #8a9eff;
+        }
+
+        /* Mensagens Base */
+        .mensagem-sucesso {
+            background: rgba(46, 204, 113, 0.15);
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            color: #2ecc71;
+            padding: 15px;
+            border-radius: 12px;
+            display: none;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* Ajustes Responsivos Finos */
         @media (max-width: 768px) {
             .navbar {
-                padding: 15px 20px;
+                padding: 15px 24px;
             }
             .nav-links {
-                display: none;
-                position: absolute;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background: rgba(10,10,10,0.98);
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: #0b0b11;
+                border-left: 1px solid rgba(255,255,255,0.08);
                 flex-direction: column;
-                padding: 20px;
-                text-align: center;
-                gap: 20px;
+                justify-content: flex-start;
+                padding: 100px 40px;
+                gap: 30px;
+                transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: -10px 0 30px rgba(0,0,0,0.5);
             }
             .nav-links.active {
-                display: flex;
+                right: 0;
             }
             .menu-toggle {
                 display: block;
+                z-index: 1001;
+            }
+            .hero {
+                padding-top: 120px;
             }
             .hero-content h1 {
-                font-size: 2.5rem;
+                font-size: 2.6rem;
+                margin-bottom: 25px;
+            }
+            .custom-player {
+                padding: 10px 18px;
+            }
+            .volume-container {
+                display: none; /* Esconde controle de volume no mobile por falta de espaço */
             }
             .section {
-                padding: 40px 20px;
+                padding: 60px 20px;
+            }
+            .section-title {
+                font-size: 2.2rem;
+            }
+            .form-card {
+                padding: 24px;
             }
             .testimonials-grid, .fotos-grid {
                 grid-template-columns: 1fr;
@@ -451,21 +581,21 @@
     <div class="bg-gradient"></div>
 
     <nav class="navbar">
-        <div class="logo">BAR DO<span>KBLO</span></div>
+        <div class="logo">BAR DO <span>KBLO</span></div>
         <div class="menu-toggle" onclick="toggleMenu()">
-            <i class="fas fa-bars"></i>
+            <i class="fas fa-bars" id="menuIcon"></i>
         </div>
         <div class="nav-links" id="navLinks">
-            <a href="#home">HOME</a>
-            <a href="#depoimentos">DEPOIMENTOS</a>
-            <a href="#fotos">FOTOS</a>
+            <a href="#home" onclick="toggleMenu()">HOME</a>
+            <a href="#depoimentos" onclick="toggleMenu()">DEPOIMENTOS</a>
+            <a href="#fotos" onclick="toggleMenu()">FOTOS</a>
             <div id="authSection"></div>
         </div>
     </nav>
 
     <div id="loginModal" class="modal">
         <div class="modal-content">
-            <h3>🔐 Login para enviar fotos</h3>
+            <h3>🔐 Acessar Espaço</h3>
             <div class="form-group">
                 <input type="email" id="loginEmail" placeholder="Email">
             </div>
@@ -473,43 +603,55 @@
                 <input type="password" id="loginPassword" placeholder="Senha">
             </div>
             <div class="modal-buttons">
-                <button onclick="fazerLogin()">Entrar</button>
-                <button onclick="fazerCadastro()">Criar Conta</button>
+                <button class="btn-primary" onclick="fazerLogin()">Entrar</button>
+                <button class="btn-primary" onclick="fazerCadastro()" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2);">Cadastrar</button>
             </div>
-            <button onclick="fecharModal()" style="margin-top: 15px; width:100%; background:#333;">Cancelar</button>
+            <button onclick="fecharModal()" style="margin-top: 15px; width:100%; background:transparent; border: none; color: rgba(255,255,255,0.5); cursor:pointer;">Cancelar</button>
         </div>
     </div>
 
     <section id="home" class="hero">
         <div class="hero-content">
             <h1>TRIBUTO AO<br>BAR DO KBLO</h1>
-            <div class="player-top">
-                <audio controls>
-                    <source src="musica.mp3" type="audio/mpeg">
-                    Coloque o arquivo musica.mp3
-                </audio>
+            
+            <!-- Player Totalmente Customizado -->
+            <div class="custom-player">
+                <button class="player-btn" onclick="toggleAudio()" id="playBtn">
+                    <i class="fas fa-play"></i>
+                </button>
+                <div class="timeline-container">
+                    <span id="currentTime">0:00</span>
+                    <input type="range" class="player-slider" id="audioSlider" value="0" min="0" max="100" oninput="seekAudio()">
+                    <span id="durationTime">0:00</span>
+                </div>
+                <div class="volume-container">
+                    <i class="fas fa-volume-up"></i>
+                    <input type="range" class="volume-slider" id="volumeSlider" value="80" min="0" max="100" oninput="changeVolume()">
+                </div>
+                <audio id="meuAudio" src="musica.mp3" preload="metadata"></audio>
             </div>
+
             <div class="musica-legenda">
                 <i class="fas fa-music"></i> Esta música foi composta especialmente em homenagem ao Bar do Kblo, para eternizar os bons momentos e as histórias vividas neste lugar tão especial.
             </div>
-            <p>Um lugar que marcou nossas vidas • Memórias eternas</p>
+            <p class="frase-efeito">Um lugar que marcou nossas vidas • Memórias eternas</p>
         </div>
     </section>
 
     <section id="historia" class="section">
-        <h2 class="section-title">Nossa História</h2>
-        <div class="form-card" style="text-align: center;">
-            <img src="bar.png" alt="Bar do Kblo" style="max-width: 100%; border-radius: 20px; margin-bottom: 30px;" onerror="this.style.display='none'">
-            <p style="line-height: 1.8;">O Bar do Kblo fechou as portas, mas as memórias permanecem. Este espaço é dedicado a celebrar os bons momentos, histórias e amizades que aconteceram entre essas paredes.</p>
+        <h2 class="section-title">Nuestra História</h2>
+        <div class="form-card" style="text-align: center; max-width: 800px; margin: 0 auto;">
+            <img src="bar.png" alt="Bar do Kblo" style="max-width: 100%; height: auto; border-radius: 16px; margin-bottom: 30px;" onerror="this.style.display='none'">
+            <p style="line-height: 1.8; color: rgba(255,255,255,0.8);">O Bar do Kblo fechou as portas, mas as memórias permanecem. Este espaço é dedicado a celebrar os bons momentos, histórias e amizades que aconteceram entre essas paredes.</p>
         </div>
     </section>
 
     <section id="depoimentos" class="section">
         <h2 class="section-title">💬 Depoimentos</h2>
-        <p class="section-subtitle">Compartilhe sua história - sem necessidade de cadastro</p>
+        <p class="section-subtitle">Compartilhe sua história — sem necessidade de cadastro</p>
         
-        <div class="form-card" style="margin-bottom: 50px;">
-            <h3 style="margin-bottom: 20px;">📝 Deixe seu depoimento</h3>
+        <div class="form-card" style="max-width: 700px; margin: 0 auto 60px;">
+            <h3 style="margin-bottom: 25px; font-weight: 600;">📝 Deixe seu depoimento</h3>
             <div id="msgSucessoDepoimento" class="mensagem-sucesso">✅ Depoimento enviado com sucesso!</div>
             <div class="form-group">
                 <input type="text" id="nomeDepoimento" placeholder="Seu nome *">
@@ -517,7 +659,7 @@
             <div class="form-group">
                 <textarea id="textoDepoimento" rows="4" placeholder="Sua história, recordação ou homenagem ao Bar do Kblo *"></textarea>
             </div>
-            <button onclick="enviarDepoimento()">✉️ ENVIAR DEPOIMENTO</button>
+            <button class="btn-primary" onclick="enviarDepoimento()">✉️ ENVIAR DEPOIMENTO</button>
         </div>
         
         <div id="listaDepoimentos">
@@ -527,29 +669,29 @@
 
     <section id="fotos" class="section">
         <h2 class="section-title">📸 Mural de Fotos</h2>
-        <p class="section-subtitle">Compartilhe suas recordações do Bar do Kblo</p>
+        <p class="section-subtitle">Compartilhe suas recordações visuais do bar</p>
         
-        <div id="loginBanner" class="login-banner">
-            <p>🔐 <strong>Envie suas fotos</strong></p>
-            <p>Faça login ou crie uma conta para compartilhar suas recordações</p>
-            <button class="btn-login" onclick="abrirModal()" style="margin-top: 10px;">Entrar / Cadastrar</button>
+        <div id="loginBanner" class="login-banner" style="max-width: 600px; margin: 0 auto 40px;">
+            <p style="font-size: 1.1rem; margin-bottom: 8px;">🔐 <strong>Envie suas fotos</strong></p>
+            <p style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">Faça login ou crie uma conta rápida para poder publicar imagens no mural de segurança.</p>
+            <button class="btn-primary" onclick="abrirModal()" style="margin-top: 15px; padding: 10px 25px; font-size: 14px;">Entrar / Cadastrar</button>
         </div>
         
-        <div id="uploadFotoSection" style="display: none;">
-            <div class="form-card" style="margin-bottom: 40px;">
+        <div id="uploadFotoSection" style="display: none; max-width: 600px; margin: 0 auto 40px;">
+            <div class="form-card">
                 <h3 style="margin-bottom: 20px;">📤 Enviar nova foto</h3>
                 <div class="form-group">
                     <input type="file" id="fotoFile" accept="image/*">
                 </div>
-                <button onclick="enviarFoto()">📸 ENVIAR FOTO</button>
+                <button class="btn-primary" onclick="enviarFoto()">📸 ENVIAR FOTO</button>
                 <div class="aviso-responsabilidade">
-                    <i class="fas fa-exclamation-triangle"></i> Cada pessoa é responsável pelo que publica. Fotos requerem login para maior segurança.
+                    <i class="fas fa-exclamation-triangle"></i> Cada pessoa é responsável pelo que publica. Fotos requerem login para sua segurança.
                 </div>
             </div>
         </div>
         
-        <div id="userInfoBanner" style="display: none; text-align: center; margin-bottom: 20px; padding: 10px; background: rgba(102,126,234,0.2); border-radius: 30px;">
-            <span id="userEmailDisplay"></span>
+        <div id="userInfoBanner" style="display: none; text-align: center; margin-bottom: 30px; padding: 12px; background: rgba(102,126,234,0.1); border: 1px solid rgba(102,126,234,0.2); border-radius: 40px; max-width: 400px; margin-left: auto; margin-right: auto;">
+            <span id="userEmailDisplay" style="font-size: 13px;"></span>
         </div>
         
         <div id="listaFotos">
@@ -563,8 +705,8 @@
             <a href="#" onclick="compartilharWhatsApp()"><i class="fab fa-whatsapp"></i></a>
             <a href="#" onclick="compartilharTwitter()"><i class="fab fa-twitter"></i></a>
         </div>
-        <p>⚠️ Cada pessoa é responsável pelo que publica. Fotos requerem login para maior segurança.</p>
-        <p style="margin-top: 20px;">© 2024 Tributo ao Bar do Kblo</p>
+        <p style="max-width: 500px; margin: 0 auto 20px; line-height: 1.6;">⚠️ Cada pessoa é de total responsabilidade jurídica pelo conteúdo publicado.</p>
+        <p style="opacity: 0.5; font-size: 12px;">© 2026 Tributo ao Bar do Kblo • Desenvolvido com carinho.</p>
     </footer>
 
     <script>
@@ -573,6 +715,63 @@
         
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         let usuarioAtual = null;
+
+        // Lógica do Player Customizado
+        const audio = document.getElementById('meuAudio');
+        const playBtn = document.getElementById('playBtn');
+        const audioSlider = document.getElementById('audioSlider');
+        const currentTimeDisplay = document.getElementById('currentTime');
+        const durationTimeDisplay = document.getElementById('durationTime');
+        const volumeSlider = document.getElementById('volumeSlider');
+
+        function formatTime(secs) {
+            let min = Math.floor(secs / 60);
+            let sec = Math.floor(secs % 60);
+            if (sec < 10) sec = "0" + sec;
+            return min + ":" + sec;
+        }
+
+        audio.addEventListener('loadedmetadata', () => {
+            audioSlider.max = audio.duration;
+            durationTimeDisplay.textContent = formatTime(audio.duration);
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            if(!audioSlider.classList.contains('seeking')) {
+                audioSlider.value = audio.currentTime;
+            }
+            currentTimeDisplay.textContent = formatTime(audio.currentTime);
+        });
+
+        function toggleAudio() {
+            if (audio.paused) {
+                audio.play();
+                playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            } else {
+                audio.pause();
+                playBtn.innerHTML = '<i class="fas fa-play"></i>';
+            }
+        }
+
+        function seekAudio() {
+            audio.currentTime = audioSlider.value;
+        }
+
+        function changeVolume() {
+            audio.volume = volumeSlider.value / 100;
+        }
+
+        // Controle Menu Responsivo
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const menuIcon = document.getElementById('menuIcon');
+            navLinks.classList.toggle('active');
+            if(navLinks.classList.contains('active')) {
+                menuIcon.className = 'fas fa-times';
+            } else {
+                menuIcon.className = 'fas fa-bars';
+            }
+        }
 
         async function verificarUsuario() {
             const { data: { user } } = await supabaseClient.auth.getUser();
@@ -591,14 +790,14 @@
                 authSection.innerHTML = `
                     <div class="user-info">
                         <span class="user-email" title="${usuarioAtual.email}">👤 ${usuarioAtual.email.split('@')[0]}</span>
-                        <button class="btn-login" onclick="fazerLogout()">Sair</button>
+                        <button class="btn-login" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2)" onclick="fazerLogout()">Sair</button>
                     </div>
                 `;
                 if (loginBanner) loginBanner.style.display = 'none';
                 if (uploadSection) uploadSection.style.display = 'block';
                 if (userInfoBanner) {
                     userInfoBanner.style.display = 'block';
-                    userEmailDisplay.innerHTML = `✅ Logado como: ${usuarioAtual.email}`;
+                    userEmailDisplay.innerHTML = `✅ Autenticado como: <strong>${usuarioAtual.email}</strong>`;
                 }
             } else {
                 authSection.innerHTML = ``;
@@ -619,58 +818,30 @@
         async function fazerLogin() {
             const email = document.getElementById('loginEmail').value;
             const senha = document.getElementById('loginPassword').value;
-            
             const { error } = await supabaseClient.auth.signInWithPassword({ email, password: senha });
-            
-            if (error) {
-                alert('Erro: ' + error.message);
-            } else {
-                fecharModal();
-                document.getElementById('loginEmail').value = '';
-                document.getElementById('loginPassword').value = '';
-                await verificarUsuario();
-                carregarFotos();
-            }
+            if (error) { alert('Erro: ' + error.message); } else { fecharModal(); limparCamposLogin(); await verificarUsuario(); carregarFotos(); }
         }
 
         async function fazerCadastro() {
             const email = document.getElementById('loginEmail').value;
             const senha = document.getElementById('loginPassword').value;
-            
             const { error } = await supabaseClient.auth.signUp({ email, password: senha });
-            
-            if (error) {
-                alert('Erro: ' + error.message);
-            } else {
-                alert('Cadastro realizado! Faça login.');
-                fecharModal();
-                document.getElementById('loginEmail').value = '';
-                document.getElementById('loginPassword').value = '';
-            }
+            if (error) { alert('Erro: ' + error.message); } else { alert('Cadastro feito com sucesso! Pode entrar.'); fecharModal(); limparCamposLogin(); }
         }
 
-        async function fazerLogout() {
-            await supabaseClient.auth.signOut();
-            await verificarUsuario();
-            carregarFotos();
+        function limparCamposLogin() {
+            document.getElementById('loginEmail').value = '';
+            document.getElementById('loginPassword').value = '';
         }
+
+        async function fazerLogout() { await supabaseClient.auth.signOut(); await verificarUsuario(); carregarFotos(); }
 
         async function enviarDepoimento() {
             const nome = document.getElementById('nomeDepoimento').value.trim();
             const depoimento = document.getElementById('textoDepoimento').value.trim();
-            
-            if (!nome || !depoimento) {
-                alert('Preencha seu nome e depoimento');
-                return;
-            }
-            
-            const { error } = await supabaseClient
-                .from('depoimentos')
-                .insert([{ nome, depoimento, aprovado: true }]);
-            
-            if (error) {
-                alert('Erro: ' + error.message);
-            } else {
+            if (!nome || !depoimento) { alert('Preencha os campos obrigatórios.'); return; }
+            const { error } = await supabaseClient.from('depoimentos').insert([{ nome, depoimento, aprovado: true }]);
+            if (error) { alert('Erro: ' + error.message); } else {
                 document.getElementById('nomeDepoimento').value = '';
                 document.getElementById('textoDepoimento').value = '';
                 const msg = document.getElementById('msgSucessoDepoimento');
@@ -681,138 +852,64 @@
         }
 
         async function carregarDepoimentos() {
-            const { data, error } = await supabaseClient
-                .from('depoimentos')
-                .select('*')
-                .order('criado_em', { ascending: false });
-            
+            const { data, error } = await supabaseClient.from('depoimentos').select('*').order('criado_em', { ascending: false });
             const listaDiv = document.getElementById('listaDepoimentos');
-            
-            if (error) {
-                listaDiv.innerHTML = `<p style="text-align:center;">Erro ao carregar depoimentos</p>`;
-                return;
-            }
-            
-            if (!data || data.length === 0) {
-                listaDiv.innerHTML = '<p style="text-align:center;">✨ Seja o primeiro a deixar sua homenagem!</p>';
-                return;
-            }
-            
-            listaDiv.innerHTML = `
-                <div class="testimonials-grid">
-                    ${data.map(d => `
-                        <div class="testimonial-card">
-                            <div class="testimonial-author">⭐ ${d.nome}</div>
-                            <p>${d.depoimento}</p>
-                            <p style="font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 15px;">📅 ${new Date(d.criado_em).toLocaleDateString('pt-BR')}</p>
-                        </div>
-                    `).join('')}
-                </div>
-            `;
+            if (error) { listaDiv.innerHTML = `<p style="text-align:center; color: #ff6b6b;">Erro ao buscar depoimentos.</p>`; return; }
+            if (!data || data.length === 0) { listaDiv.innerHTML = '<p style="text-align:center; opacity:0.5;">✨ Seja a primeira pessoa a deixar uma homenagem!</p>'; return; }
+            listaDiv.innerHTML = `<div class="testimonials-grid">${data.map(d => `
+                <div class="testimonial-card">
+                    <div class="testimonial-author">⭐ ${d.nome}</div>
+                    <p style="color: rgba(255,255,255,0.85); font-size:0.95rem;">"${d.depoimento}"</p>
+                    <p style="font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 15px;"><i class="far fa-calendar-alt"></i> ${new Date(d.criado_em).toLocaleDateString('pt-BR')}</p>
+                </div>`).join('')}</div>`;
         }
 
         async function carregarFotos() {
-            const { data, error } = await supabaseClient
-                .from('fotos')
-                .select('*')
-                .order('criado_em', { ascending: false });
-            
+            const { data, error } = await supabaseClient.from('fotos').select('*').order('criado_em', { ascending: false });
             const listaDiv = document.getElementById('listaFotos');
-            
-            if (error) {
-                listaDiv.innerHTML = `<p style="text-align:center;">Erro ao carregar fotos</p>`;
-                return;
-            }
-            
-            if (!data || data.length === 0) {
-                listaDiv.innerHTML = '<p style="text-align:center;">📸 Nenhuma foto ainda. Faça login e compartilhe a sua!</p>';
-                return;
-            }
-            
-            listaDiv.innerHTML = `
-                <div class="fotos-grid">
-                    ${data.map(f => `
-                        <div class="foto-card">
-                            <img src="${f.foto_url}" alt="Foto de ${f.nome || 'anônimo'}">
-                            <div class="foto-info">
-                                <div class="foto-nome">⭐ ${f.nome || 'anônimo'}</div>
-                                <p style="font-size: 11px; margin-top: 8px;">📅 ${new Date(f.criado_em).toLocaleDateString('pt-BR')}</p>
-                                ${usuarioAtual ? `<button class="btn-delete" onclick="deletarFoto(${f.id})">🗑️</button>` : ''}
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-            `;
+            if (error) { listaDiv.innerHTML = `<p style="text-align:center; color: #ff6b6b;">Erro ao carregar o mural.</p>`; return; }
+            if (!data || data.length === 0) { listaDiv.innerHTML = '<p style="text-align:center; opacity: 0.5;">📸 Nenhuma foto adicionada ainda. Publique a primeira!</p>'; return; }
+            listaDiv.innerHTML = `<div class="fotos-grid">${data.map(f => `
+                <div class="foto-card">
+                    <img src="${f.foto_url}" alt="Recordação">
+                    <div class="foto-info">
+                        <div class="foto-nome">⭐ ${f.nome || 'Anônimo'}</div>
+                        <p style="font-size: 11px; margin-top: 8px; opacity:0.5;">📅 ${new Date(f.criado_em).toLocaleDateString('pt-BR')}</p>
+                        ${usuarioAtual ? `<button class="btn-delete" onclick="deletarFoto(${f.id})"><i class="fas fa-trash-alt"></i></button>` : ''}
+                    </div>
+                </div>`).join('')}</div>`;
         }
 
         async function enviarFoto() {
-            if (!usuarioAtual) {
-                alert('Faça login para enviar fotos');
-                abrirModal();
-                return;
-            }
-            
+            if (!usuarioAtual) { alert('Sessão expirada. Faça login novamente.'); abrirModal(); return; }
             const fotoFile = document.getElementById('fotoFile').files[0];
-            
-            if (!fotoFile) {
-                alert('Selecione uma foto');
-                return;
-            }
-            
+            if (!fotoFile) { alert('Selecione um arquivo de imagem.'); return; }
             const nome = usuarioAtual.email.split('@')[0];
-            
             const fileExt = fotoFile.name.split('.').pop();
             const fileName = `${Date.now()}_${nome}.${fileExt}`;
-            
-            const { error: uploadError } = await supabaseClient.storage
-                .from('fotos')
-                .upload(fileName, fotoFile);
-            
-            if (uploadError) {
-                alert('Erro ao enviar foto: ' + uploadError.message);
-            } else {
-                const { data: publicUrl } = supabaseClient.storage
-                    .from('fotos')
-                    .getPublicUrl(fileName);
-                
+            const { error: uploadError } = await supabaseClient.storage.from('fotos').upload(fileName, fotoFile);
+            if (uploadError) { alert('Erro no envio do arquivo: ' + uploadError.message); } else {
+                const { data: publicUrl } = supabaseClient.storage.from('fotos').getPublicUrl(fileName);
                 const foto_url = publicUrl.publicUrl;
-                
-                const { error: insertError } = await supabaseClient
-                    .from('fotos')
-                    .insert([{ nome, user_email: usuarioAtual.email, foto_url, aprovado: true }]);
-                
-                if (insertError) {
-                    alert('Erro ao salvar: ' + insertError.message);
-                } else {
+                const { error: insertError } = await supabaseClient.from('fotos').insert([{ nome, user_email: usuarioAtual.email, foto_url, aprovado: true }]);
+                if (insertError) { alert('Erro ao registrar informações: ' + insertError.message); } else {
                     document.getElementById('fotoFile').value = '';
                     carregarFotos();
-                    alert('Foto enviada com sucesso!');
+                    alert('Sua imagem foi inserida no mural com sucesso!');
                 }
             }
         }
 
         async function deletarFoto(id) {
-            if (confirm('Tem certeza que quer deletar esta foto?')) {
+            if (confirm('Deseja mesmo remover permanentemente esta imagem do mural?')) {
                 await supabaseClient.from('fotos').delete().eq('id', id);
                 carregarFotos();
             }
         }
 
-        function toggleMenu() {
-            document.getElementById('navLinks').classList.toggle('active');
-        }
-
-        function compartilharFacebook() {
-            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, '_blank');
-        }
-        
-        function compartilharWhatsApp() {
-            window.open(`https://wa.me/?text=${encodeURIComponent('Tributo ao Bar do Kblo - ' + window.location.href)}`, '_blank');
-        }
-        
-        function compartilharTwitter() {
-            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent('Tributo ao Bar do Kblo')}&url=${encodeURIComponent(window.location.href)}`, '_blank');
-        }
+        function compartilharFacebook() { window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, '_blank'); }
+        function compartilharWhatsApp() { window.open(`https://wa.me/?text=${encodeURIComponent('Tributo Oficial ao Bar do Kblo - Visite em: ' + window.location.href)}`, '_blank'); }
+        function compartilharTwitter() { window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent('Confira as memórias e o tributo ao Bar do Kblo')}&url=${encodeURIComponent(window.location.href)}`, '_blank'); }
 
         verificarUsuario();
         carregarDepoimentos();
