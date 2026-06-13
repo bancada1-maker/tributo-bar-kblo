@@ -301,7 +301,7 @@
         .contador-container {
             font-size: 0.85rem;
             color: rgba(255, 255, 255, 0.5);
-            margin-bottom: 35px;
+            margin-bottom: 20px;
         }
 
         .contador-container span {
@@ -316,6 +316,37 @@
             color: #8a9eff;
             letter-spacing: 0.5px;
             animation: fadeInUp 1s ease 0.5s both;
+            margin-bottom: 25px;
+        }
+
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .share-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.03);
+            color: rgba(255,255,255,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 18px;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-3px);
+            border-color: #8a9eff;
+            color: #8a9eff;
+            box-shadow: 0 10px 20px rgba(138, 158, 255, 0.2);
+            background: rgba(138, 158, 255, 0.05);
         }
 
         .section {
@@ -406,6 +437,7 @@
             position: relative;
             overflow: hidden;
             display: inline-block;
+            width: 100%;
         }
 
         .file-input-wrapper input[type="file"] {
@@ -651,36 +683,6 @@
             color: rgba(255,255,255,0.5);
         }
 
-        .social-links {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 30px;
-            margin-bottom: 25px;
-        }
-
-        .social-links a {
-            color: rgba(255,255,255,0.6);
-            font-size: 24px;
-            transition: all 0.3s ease;
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: 1px solid rgba(255,255,255,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-        }
-
-        .social-links a:hover {
-            color: #8a9eff;
-            transform: translateY(-5px);
-            border-color: #8a9eff;
-            box-shadow: 0 10px 20px rgba(138, 158, 255, 0.2);
-        }
-
         .mensagem-sucesso {
             background: rgba(46, 204, 113, 0.15);
             border: 1px solid rgba(46, 204, 113, 0.3);
@@ -732,7 +734,6 @@
             color: #8a9eff;
         }
 
-        /* Modal para visualização de fotos */
         .modal {
             display: none;
             position: fixed;
@@ -771,7 +772,6 @@
             transform: rotate(90deg);
         }
 
-        /* Scrollbar personalizada */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -874,7 +874,6 @@
         </div>
     </nav>
 
-    <!-- Modal para visualização de fotos -->
     <div class="modal" id="imageModal" onclick="closeModal()">
         <span class="modal-close">&times;</span>
         <img src="" alt="Foto ampliada" id="modalImage">
@@ -907,6 +906,18 @@
                 <i class="fas fa-headset"></i> Ouvida <span id="contadorReproducoes">0</span> vezes
             </div>
             <p class="frase-efeito">Um lugar que eternizou memórias</p>
+            
+            <div class="share-buttons">
+                <button class="share-btn" onclick="compartilharFacebook()" title="Compartilhar no Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </button>
+                <button class="share-btn" onclick="compartilharWhatsApp()" title="Compartilhar no WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </button>
+                <button class="share-btn" onclick="compartilharTwitter()" title="Compartilhar no Twitter">
+                    <i class="fab fa-twitter"></i>
+                </button>
+            </div>
         </div>
     </section>
 
@@ -1012,41 +1023,30 @@
     </section>
 
     <footer class="footer">
-        <div class="social-links">
-            <a href="#" onclick="compartilharFacebook()" title="Compartilhar no Facebook">
-                <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="#" onclick="compartilharWhatsApp()" title="Compartilhar no WhatsApp">
-                <i class="fab fa-whatsapp"></i>
-            </a>
-            <a href="#" onclick="compartilharTwitter()" title="Compartilhar no Twitter">
-                <i class="fab fa-twitter"></i>
-            </a>
-        </div>
         <p style="max-width: 500px; margin: 0 auto 20px; line-height: 1.6;">
             <i class="fas fa-shield-alt" style="color: #8a9eff;"></i> 
             Cada pessoa é de total responsabilidade jurídica pelo conteúdo publicado.
         </p>
-        <p style="opacity: 0.5; font-size: 12px;">
-            © 2026 Tributo ao Bar do Kblo • Desenvolvido com 
-            <i class="fas fa-heart" style="color: #e74c3c;"></i> e saudade
+        <p style="opacity: 0.7; font-size: 13px; margin-bottom: 5px;">
+            Desenvolvido por <strong style="color: #8a9eff;">Velho Malte</strong>
+        </p>
+        <p style="opacity: 0.4; font-size: 11px;">
+            © 2026 Tributo ao Bar do Kblo
         </p>
     </footer>
 
     <script>
-        // Configurações
         const EMAIL_ADMINISTRADOR = 'tributokblo@gmail.com';
+        const SENHA_ADMIN = 'kblo2026';
+        
         const SUPABASE_URL = 'https://dvpdypkfybnabaofcdse.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2cGR5cGtmeWJuYWJhb2ZjZHNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEyNzQyMjYsImV4cCI6MjA5Njg1MDIyNn0.NLOwSbfxvUOepNj5FUEjgBCoGYDgX5kfg44PZDuHXFY';
         
-        // Inicialização do Supabase
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         
-        // Variáveis globais
         let adminAtivo = false;
         let musicaContada = false;
         
-        // Elementos do DOM
         const audio = document.getElementById('meuAudio');
         const playBtn = document.getElementById('playBtn');
         const audioSlider = document.getElementById('audioSlider');
@@ -1055,8 +1055,6 @@
         const volumeSlider = document.getElementById('volumeSlider');
         const volumeIcon = document.getElementById('volumeIcon');
 
-        // ==================== FUNÇÕES DE ÁUDIO ====================
-        
         function formatTime(secs) {
             const min = Math.floor(secs / 60);
             const sec = Math.floor(secs % 60);
@@ -1087,7 +1085,7 @@
                     
                     if (!musicaContada) {
                         musicaContada = true;
-                        await supabaseClient.rpc('incrementar_contador_musica');
+                        await incrementarContador();
                         buscarContadorMusica();
                     }
                 } catch (e) {
@@ -1096,6 +1094,30 @@
             } else {
                 audio.pause();
                 playBtn.innerHTML = '<i class="fas fa-play"></i>';
+            }
+        }
+
+        async function incrementarContador() {
+            try {
+                const { data, error: readError } = await supabaseClient
+                    .from('metricas')
+                    .select('valor')
+                    .eq('chave', 'reproducoes_musica')
+                    .single();
+                
+                if (readError && readError.code !== 'PGRST116') throw readError;
+                
+                const valorAtual = data?.valor || 0;
+                const novoValor = valorAtual + 1;
+                
+                const { error: updateError } = await supabaseClient
+                    .from('metricas')
+                    .upsert({ chave: 'reproducoes_musica', valor: novoValor }, { onConflict: 'chave' });
+                
+                if (updateError) throw updateError;
+                
+            } catch (e) {
+                console.error("Erro ao incrementar contador:", e);
             }
         }
 
@@ -1147,8 +1169,6 @@
             }
         }
 
-        // ==================== NAVEGAÇÃO ====================
-        
         function toggleMenu() {
             const navLinks = document.getElementById('navLinks');
             const menuIcon = document.getElementById('menuIcon');
@@ -1166,7 +1186,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Fechar menu ao clicar fora
         document.addEventListener('click', (e) => {
             const navLinks = document.getElementById('navLinks');
             const menuToggle = document.querySelector('.menu-toggle');
@@ -1178,7 +1197,6 @@
             }
         });
 
-        // Navbar scroll effect
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
             if (window.scrollY > 50) {
@@ -1188,31 +1206,26 @@
             }
         });
 
-        // ==================== ADMIN ====================
-        
         function promptAdmin() {
-            const email = prompt("Digite o e-mail do administrador para acessar o painel:");
+            const email = prompt("Digite o e-mail do administrador:");
             
-            if (email === EMAIL_ADMINISTRADOR) {
+            if (email !== EMAIL_ADMINISTRADOR) {
+                alert("❌ E-mail incorreto.");
+                return;
+            }
+            
+            const senha = prompt("Digite a senha de administrador:");
+            
+            if (senha === SENHA_ADMIN) {
                 adminAtivo = true;
                 alert("✅ Modo administrador ativado! Você pode gerenciar o conteúdo.");
                 carregarFotos();
                 carregarDepoimentos();
-            } else if (email) {
-                alert("❌ Acesso negado. E-mail incorreto.");
+            } else {
+                alert("❌ Senha incorreta.");
             }
         }
 
-        function logoutAdmin() {
-            adminAtivo = false;
-            alert("Modo administrador desativado.");
-            carregarFotos();
-            carregarDepoimentos();
-        }
-
-        // ==================== DEPOIMENTOS ====================
-        
-        // Contador de caracteres
         document.getElementById('textoDepoimento')?.addEventListener('input', function() {
             const charCount = this.value.length;
             document.getElementById('charCount').textContent = charCount;
@@ -1347,8 +1360,6 @@
             }
         }
 
-        // ==================== FOTOS ====================
-        
         function previewImage() {
             const file = document.getElementById('fotoFile').files[0];
             const previewContainer = document.getElementById('previewContainer');
@@ -1415,15 +1426,22 @@
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ENVIANDO...';
             
             try {
-                const nomeExibicao = emailInput.split('@')[0];
                 const fileExt = fotoFile.name.split('.').pop().toLowerCase();
                 const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
                 
                 const { error: uploadError } = await supabaseClient.storage
                     .from('fotos')
-                    .upload(fileName, fotoFile);
+                    .upload(fileName, fotoFile, {
+                        cacheControl: '3600',
+                        upsert: false
+                    });
                 
-                if (uploadError) throw uploadError;
+                if (uploadError) {
+                    if (uploadError.message.includes('security') || uploadError.message.includes('policy')) {
+                        throw new Error('Erro de segurança. Verifique as políticas do bucket "fotos" no Supabase.');
+                    }
+                    throw uploadError;
+                }
                 
                 const { data: publicUrl } = supabaseClient.storage
                     .from('fotos')
@@ -1434,7 +1452,7 @@
                 const { error: insertError } = await supabaseClient
                     .from('fotos')
                     .insert([{ 
-                        nome: nomeExibicao, 
+                        nome: emailInput.split('@')[0], 
                         user_email: emailInput, 
                         foto_url, 
                         aprovado: true 
@@ -1456,6 +1474,7 @@
                 carregarFotos();
             } catch (error) {
                 alert('❌ Erro no envio: ' + error.message);
+                console.error('Erro detalhado:', error);
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = '<i class="fas fa-upload"></i> ENVIAR FOTO';
@@ -1554,15 +1573,12 @@
             document.body.style.overflow = 'auto';
         }
 
-        // Fechar modal com tecla ESC
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 closeModal();
             }
         });
 
-        // ==================== COMPARTILHAMENTO ====================
-        
         function compartilharFacebook() {
             const url = encodeURIComponent(window.location.href);
             window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
@@ -1580,9 +1596,6 @@
             window.open(`https://twitter.com/intent/tweet?text=${texto}&url=${url}`, '_blank', 'width=600,height=400');
         }
 
-        // ==================== ANIMAÇÕES E EFEITOS ====================
-        
-        // Partículas de fundo
         function criarParticulas() {
             const container = document.getElementById('particles');
             if (!container) return;
@@ -1608,7 +1621,6 @@
             }
         }
 
-        // Revelar seções ao scroll
         function revelarSecoes() {
             const secoes = document.querySelectorAll('.section');
             
@@ -1627,8 +1639,6 @@
             });
         }
 
-        // ==================== INICIALIZAÇÃO ====================
-        
         function inicializar() {
             criarParticulas();
             revelarSecoes();
@@ -1636,10 +1646,8 @@
             carregarDepoimentos();
             carregarFotos();
             
-            // Volume inicial
             audio.volume = volumeSlider.value / 100;
             
-            // Keyboard shortcuts
             document.addEventListener('keydown', (e) => {
                 if (e.code === 'Space' && e.target === document.body) {
                     e.preventDefault();
@@ -1648,14 +1656,12 @@
             });
         }
 
-        // Iniciar quando o DOM estiver pronto
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', inicializar);
         } else {
             inicializar();
         }
 
-        // Adicionar estilo para animação das partículas
         const style = document.createElement('style');
         style.textContent = `
             @keyframes float {
