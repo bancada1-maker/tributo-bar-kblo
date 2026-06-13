@@ -22,13 +22,25 @@
             line-height: 1.6;
         }
 
+        /* 1) Ajuste: Imagem de fundo cobrindo do topo até atrás do título */
+        .hero-bg-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            min-height: 90vh;
+            background: linear-gradient(to bottom, rgba(7, 7, 10, 0.4) 0%, rgba(7, 7, 10, 0.95) 90%, #07070a 100%), url('bar.jpg') center/cover no-repeat;
+            z-index: -1;
+        }
+
         .bg-gradient {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 50% 20%, rgba(102, 126, 234, 0.12) 0%, rgba(118, 75, 162, 0.08) 50%, #07070a 100%);
+            background: radial-gradient(circle at 50% 20%, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.03) 50%, #07070a 100%);
             z-index: -2;
         }
 
@@ -39,7 +51,7 @@
             left: 0;
             width: 100%;
             padding: 15px 40px;
-            background: rgba(7, 7, 10, 0.85);
+            background: rgba(7, 7, 10, 0.75);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             z-index: 1000;
@@ -91,7 +103,7 @@
         .user-email {
             font-size: 12px;
             color: #8a9eff;
-            max-width: 120px;
+            max-width: 150px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -120,7 +132,7 @@
             color: #fff;
         }
 
-        /* Hero com Enquadramento Premium */
+        /* Hero */
         .hero {
             min-height: 90vh;
             display: flex;
@@ -128,11 +140,13 @@
             justify-content: center;
             text-align: center;
             padding: 140px 24px 60px;
+            position: relative;
         }
 
         .hero-content {
             max-width: 750px;
             width: 100%;
+            z-index: 2;
         }
 
         .hero-content h1 {
@@ -140,20 +154,37 @@
             font-size: 4.2rem;
             font-weight: 900;
             line-height: 1.15;
-            background: linear-gradient(135deg, #ffffff 20%, #8a9eff 60%, #a17fe0 100%);
+            text-shadow: 2px 4px 15px rgba(0,0,0,0.7);
+            background: linear-gradient(135deg, #ffffff 40%, #8a9eff 75%, #a17fe0 100%);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 35px;
+            margin-bottom: 25px;
             letter-spacing: -1px;
         }
 
-        /* Novo Player Customizado (Estilo Spotify) */
+        /* 6) Ajuste: Design para o contador de reproduções no Player */
+        .play-counter {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 15px;
+            display: inline-block;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 4px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .play-counter i {
+            color: #a17fe0;
+            margin-right: 5px;
+        }
+
+        /* Novo Player Customizado */
         .custom-player {
             max-width: 500px;
             margin: 0 auto 25px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(7, 7, 10, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border-radius: 50px;
@@ -161,6 +192,7 @@
             display: flex;
             align-items: center;
             gap: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .player-btn {
@@ -230,21 +262,55 @@
             outline: none;
         }
 
-        .volume-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 8px;
-            height: 8px;
+        /* 4) Ajuste: Estilo destacado para os ícones de compartilhamento no Topo */
+        .share-header-box {
+            margin-top: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 15px 25px;
+            border-radius: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 20px;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .share-header-box span {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.7);
+            letter-spacing: 0.5px;
+        }
+
+        .share-destaque-btn {
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
-            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .share-destaque-btn.wpp { background: #25D366; }
+        .share-destaque-btn.insta { background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D); }
+        .share-destaque-btn.fb { background: #1877F2; }
+
+        .share-destaque-btn:hover {
+            transform: translateY(-4px) scale(1.08);
+            box-shadow: 0 8px 20px rgba(255,255,255,0.1);
         }
 
         /* Legendas e Textos */
         .musica-legenda {
             font-size: 0.95rem;
-            color: rgba(255,255,255,0.7);
-            margin-bottom: 35px;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 20px;
             line-height: 1.7;
-            padding: 0 10px;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
         }
 
         .musica-legenda i {
@@ -289,6 +355,7 @@
             -webkit-backdrop-filter: blur(10px);
             border-radius: 24px;
             padding: 40px;
+            position: relative;
         }
 
         .form-group {
@@ -360,7 +427,6 @@
         }
 
         .foto-card:hover {
-            transform: translateY(-8px);
             border-color: #8a9eff;
         }
 
@@ -379,27 +445,32 @@
             color: #8a9eff;
         }
 
-        .btn-delete {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: rgba(217, 83, 79, 0.9);
+        /* 2) Ajuste: Botões facilitados de exclusão para o administrador */
+        .btn-admin-delete {
+            background: #ff4a4a;
             color: #fff;
             border: none;
-            border-radius: 50%;
-            width: 36px;
-            height: 36px;
+            border-radius: 8px;
+            padding: 6px 12px;
             cursor: pointer;
-            font-size: 14px;
-            display: flex;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.2s;
+            gap: 6px;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+        .btn-admin-delete:hover {
+            background: #d93333;
         }
 
-        .foto-card:hover .btn-delete {
-            opacity: 1;
+        .foto-card .btn-admin-delete {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            margin-top: 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
 
         /* Grid de Depoimentos */
@@ -454,7 +525,7 @@
         }
 
         .modal-content h3 {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             text-align: center;
             font-family: 'Playfair Display', serif;
             font-size: 1.5rem;
@@ -477,31 +548,57 @@
             padding: 35px;
         }
 
+        /* 5) Ajuste: Seção de contato dedicada e estruturada no Rodapé */
+        .admin-contact-box {
+            max-width: 600px;
+            margin: 0 auto 40px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .admin-contact-box h4 {
+            font-size: 1.1rem;
+            color: #8a9eff;
+            margin-bottom: 10px;
+        }
+
+        .admin-contact-box p {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 15px;
+        }
+
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.07);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .contact-btn:hover {
+            background: #fff;
+            color: #07070a;
+        }
+
         /* Footer */
         .footer {
             text-align: center;
-            padding: 50px 24px;
+            padding: 60px 24px 40px;
             border-top: 1px solid rgba(255,255,255,0.06);
             margin-top: 80px;
             font-size: 0.9rem;
             color: rgba(255,255,255,0.5);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 24px;
-            justify-content: center;
-            margin-bottom: 25px;
-        }
-
-        .social-links a {
-            color: rgba(255,255,255,0.6);
-            font-size: 22px;
-            transition: color 0.3s;
-        }
-
-        .social-links a:hover {
-            color: #8a9eff;
         }
 
         /* Mensagens Base */
@@ -524,61 +621,37 @@
 
         /* Ajustes Responsivos Finos */
         @media (max-width: 768px) {
-            .navbar {
-                padding: 15px 24px;
-            }
+            .navbar { padding: 15px 24px; }
             .nav-links {
                 position: fixed;
-                top: 0;
-                right: -100%;
-                width: 280px;
-                height: 100vh;
+                top: 0; right: -100%;
+                width: 280px; height: 100vh;
                 background: #0b0b11;
                 border-left: 1px solid rgba(255,255,255,0.08);
                 flex-direction: column;
                 justify-content: flex-start;
-                padding: 100px 40px;
-                gap: 30px;
+                padding: 100px 40px; gap: 30px;
                 transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
                 box-shadow: -10px 0 30px rgba(0,0,0,0.5);
             }
-            .nav-links.active {
-                right: 0;
-            }
-            .menu-toggle {
-                display: block;
-                z-index: 1001;
-            }
-            .hero {
-                padding-top: 120px;
-            }
-            .hero-content h1 {
-                font-size: 2.6rem;
-                margin-bottom: 25px;
-            }
-            .custom-player {
-                padding: 10px 18px;
-            }
-            .volume-container {
-                display: none; /* Esconde controle de volume no mobile por falta de espaço */
-            }
-            .section {
-                padding: 60px 20px;
-            }
-            .section-title {
-                font-size: 2.2rem;
-            }
-            .form-card {
-                padding: 24px;
-            }
-            .testimonials-grid, .fotos-grid {
-                grid-template-columns: 1fr;
-            }
+            .nav-links.active { right: 0; }
+            .menu-toggle { display: block; z-index: 1001; }
+            .hero { padding-top: 120px; }
+            .hero-content h1 { font-size: 2.6rem; margin-bottom: 20px; }
+            .custom-player { padding: 10px 18px; }
+            .volume-container { display: none; }
+            .section { padding: 60px 20px; }
+            .section-title { font-size: 2.2rem; }
+            .form-card { padding: 24px; }
+            .testimonials-grid, .fotos-grid { grid-template-columns: 1fr; }
+            .share-header-box { flex-direction: column; gap: 10px; width: 100%; }
         }
     </style>
 </head>
 <body>
     <div class="bg-gradient"></div>
+    <!-- 1) Elemento para aplicar a foto de fundo cobrindo o topo -->
+    <div class="hero-bg-container"></div>
 
     <nav class="navbar">
         <div class="logo">BAR DO <span>KBLO</span></div>
@@ -593,20 +666,32 @@
         </div>
     </nav>
 
+    <!-- 3) Ajuste: Modal adaptado para Login simplificado com confirmação por e-mail (OTP) -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
-            <h3>🔐 Acessar Espaço</h3>
-            <div class="form-group">
-                <input type="email" id="loginEmail" placeholder="Email">
+            <h3>🔐 Publicar no Mural</h3>
+            <p style="font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-bottom: 20px; text-align: center;">
+                Insira seu e-mail para receber o código numérico de validação de postagem.
+            </p>
+            
+            <!-- Etapa 1: Digitar Email -->
+            <div id="otpEtapaEmail">
+                <div class="form-group">
+                    <input type="email" id="loginEmail" placeholder="Seu melhor e-mail">
+                </div>
+                <button class="btn-primary" style="width: 100%;" onclick="enviarCodigoOTP()">Enviar Código de Confirmação</button>
             </div>
-            <div class="form-group">
-                <input type="password" id="loginPassword" placeholder="Senha">
+
+            <!-- Etapa 2: Confirmar Token (Oculto inicialmente) -->
+            <div id="otpEtapaToken" style="display: none;">
+                <div class="form-group">
+                    <input type="text" id="loginToken" placeholder="Digite o código recebido">
+                </div>
+                <button class="btn-primary" style="width: 100%;" onclick="verificarCodigoOTP()">Confirmar e Liberar Postagem</button>
+                <button onclick="voltarEtapaEmail()" style="margin-top: 10px; width:100%; background:transparent; border:none; color:#8a9eff; font-size:12px; cursor:pointer;">Alterar e-mail</button>
             </div>
-            <div class="modal-buttons">
-                <button class="btn-primary" onclick="fazerLogin()">Entrar</button>
-                <button class="btn-primary" onclick="fazerCadastro()" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2);">Cadastrar</button>
-            </div>
-            <button onclick="fecharModal()" style="margin-top: 15px; width:100%; background:transparent; border: none; color: rgba(255,255,255,0.5); cursor:pointer;">Cancelar</button>
+
+            <button onclick="fecharModal()" style="margin-top: 20px; width:100%; background:transparent; border: none; color: rgba(255,255,255,0.4); cursor:pointer; font-size: 13px;">Cancelar</button>
         </div>
     </div>
 
@@ -614,7 +699,12 @@
         <div class="hero-content">
             <h1>TRIBUTO AO<br>BAR DO KBLO</h1>
             
-            <!-- Player Totalmente Customizado -->
+            <!-- 6) Ajuste: Exibição pública e dinâmica do contador de execuções -->
+            <div class="play-counter">
+                <i class="fas fa-headphones"></i> Reproduzida <strong id="contadorViews">...</strong> vezes
+            </div>
+
+            <!-- Player Customizado -->
             <div class="custom-player">
                 <button class="player-btn" onclick="toggleAudio()" id="playBtn">
                     <i class="fas fa-play"></i>
@@ -628,21 +718,35 @@
                     <i class="fas fa-volume-up"></i>
                     <input type="range" class="volume-slider" id="volumeSlider" value="80" min="0" max="100" oninput="changeVolume()">
                 </div>
-                <audio id="meuAudio" src="musica.mp3" preload="metadata"></audio>
+                <!-- Evento onplay mapeado para acionar o incremento automático -->
+                <audio id="meuAudio" src="musica.mp3" preload="metadata" onplay="registrarReproducao()"></audio>
             </div>
 
             <div class="musica-legenda">
                 <i class="fas fa-music"></i> Música criada pela banda Velho Malte em homenagem ao Bar do Kblo
             </div>
             <p class="frase-efeito">Um lugar que eternizou memórias</p>
+
+            <!-- 4) Ajuste: Ícones de compartilhamento destacados no topo focados na página principal -->
+            <div class="share-header-box">
+                <span>Compartilhe essa homenagem:</span>
+                <a href="#" class="share-destaque-btn wpp" onclick="compartilharWhatsApp()" title="Compartilhar no WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="#" class="share-destaque-btn insta" onclick="compartilharInstagram()" title="Como compartilhar no Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="share-destaque-btn fb" onclick="compartilharFacebook()" title="Compartilhar no Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+            </div>
         </div>
     </section>
 
     <section id="historia" class="section">
         <h2 class="section-title">Vamos compartilhar histórias </h2>
         <div class="form-card" style="text-align: center; max-width: 800px; margin: 0 auto;">
-            <img src="bar.jpg" alt="Bar do Kblo" style="max-width: 100%; height: auto; border-radius: 16px; margin-bottom: 30px;" onerror="this.style.display='none'">
-            <p style="line-height: 1.8; color: rgba(255,255,255,0.8);">Este espaço é dedicado a registrar os bons momentos, histórias e amizades que aconteceram no Bar do Kblo.</p>
+            <p style="line-height: 1.8; color: rgba(255,255,255,0.8); font-size: 1.05rem;">Este espaço é dedicado a registrar os bons momentos, histórias e amizades que aconteceram no Bar do Kblo.</p>
         </div>
     </section>
 
@@ -671,10 +775,13 @@
         <h2 class="section-title">📸 Mural de Fotos</h2>
         <p class="section-subtitle">Compartilhe suas recordações</p>
         
+        <!-- 3) Ajuste: Descritivo textual explicando o novo fluxo sem senhas convencionais -->
         <div id="loginBanner" class="login-banner" style="max-width: 600px; margin: 0 auto 40px;">
-            <p style="font-size: 1.1rem; margin-bottom: 8px;">🔐 <strong>Envie suas fotos</strong></p>
-            <p style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">Crie uma senha rapidinho! Isso garante segurança e protege os direitos de imagem.</p>
-            <button class="btn-primary" onclick="abrirModal()" style="margin-top: 15px; padding: 10px 25px; font-size: 14px;">Criar</button>
+            <p style="font-size: 1.1rem; margin-bottom: 8px;">📸 <strong>Envie suas fotos para o Mural</strong></p>
+            <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; line-height: 1.5; max-width: 480px; margin: 0 auto 15px;">
+                Não precisa memorizar senhas! Basta digitar seu e-mail e inserir o código numérico de validação que chegará na sua caixa de entrada para liberar o upload na hora.
+            </p>
+            <button class="btn-primary" onclick="abrirModal()" style="padding: 10px 25px; font-size: 14px;">Acessar e Postar</button>
         </div>
         
         <div id="uploadFotoSection" style="display: none; max-width: 600px; margin: 0 auto 40px;">
@@ -685,7 +792,7 @@
                 </div>
                 <button class="btn-primary" onclick="enviarFoto()">📸 ENVIAR FOTO</button>
                 <div class="aviso-responsabilidade">
-                    <i class="fas fa-exclamation-triangle"></i> Cada pessoa é responsável pelo que publica. Fotos requerem login para sua segurança.
+                    <i class="fas fa-exclamation-triangle"></i> Cada pessoa é responsável pelo que publica.
                 </div>
             </div>
         </div>
@@ -700,12 +807,16 @@
     </section>
 
     <footer class="footer">
-        <div class="social-links">
-            <a href="#" onclick="compartilharFacebook()"><i class="fab fa-facebook"></i></a>
-            <a href="#" onclick="compartilharWhatsApp()"><i class="fab fa-whatsapp"></i></a>
-            <a href="#" onclick="compartilharTwitter()"><i class="fab fa-twitter"></i></a>
+        <!-- 5) Ajuste: Caixa estruturada para solicitações de remoção de imagem e envio de sugestões -->
+        <div class="admin-contact-box">
+            <h4>📩 Contato com o Administrador</h4>
+            <p>Identificou uma foto indevida ou tem sugestões para a página? Entre em contato diretamente para solicitações de remoção rápidas.</p>
+            <a href="mailto:admin@bardokblo.com.br?subject=Solicitacao%20Remocao%20ou%20Sugestao%20-%20Bar%20do%20Kblo" class="contact-btn">
+                <i class="fas fa-envelope"></i> Enviar Mensagem ao Admin
+            </a>
         </div>
-        <p style="max-width: 500px; margin: 0 auto 20px; line-height: 1.6;">⚠️ Cada pessoa é de total responsabilidade jurídica pelo conteúdo publicado.</p>
+
+        <p style="max-width: 500px; margin: 0 auto 20px; line-height: 1.6; opacity: 0.7;">⚠️ Cada pessoa é de total responsabilidade jurídica pelo conteúdo publicado.</p>
         <p style="opacity: 0.5; font-size: 12px;">© 2026 Tributo ao Bar do Kblo • Desenvolvido com carinho.</p>
     </footer>
 
@@ -715,6 +826,10 @@
         
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         let usuarioAtual = null;
+        let isAdmin = false;
+
+        // Lista de e-mails autorizados para gerenciamento facilitado (2)
+        const LISTA_ADMINISTRADORES = ['admin@bardokblo.com.br', 'kblo.admin@gmail.com'];
 
         // Lógica do Player Customizado
         const audio = document.getElementById('meuAudio');
@@ -776,6 +891,8 @@
         async function verificarUsuario() {
             const { data: { user } } = await supabaseClient.auth.getUser();
             usuarioAtual = user;
+            // Identifica se o usuário atual faz parte da lista configurada de administradores
+            isAdmin = user ? LISTA_ADMINISTRADORES.includes(user.email.toLowerCase()) : false;
             atualizarInterface();
         }
 
@@ -787,9 +904,10 @@
             const userEmailDisplay = document.getElementById('userEmailDisplay');
             
             if (usuarioAtual) {
+                let rotuloUser = isAdmin ? '🛠️ Administrador' : '👤 Usuário';
                 authSection.innerHTML = `
                     <div class="user-info">
-                        <span class="user-email" title="${usuarioAtual.email}">👤 ${usuarioAtual.email.split('@')[0]}</span>
+                        <span class="user-email" title="${usuarioAtual.email}">${rotuloUser}: ${usuarioAtual.email.split('@')[0]}</span>
                         <button class="btn-login" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2)" onclick="fazerLogout()">Sair</button>
                     </div>
                 `;
@@ -797,7 +915,7 @@
                 if (uploadSection) uploadSection.style.display = 'block';
                 if (userInfoBanner) {
                     userInfoBanner.style.display = 'block';
-                    userEmailDisplay.innerHTML = `✅ Autenticado como: <strong>${usuarioAtual.email}</strong>`;
+                    userEmailDisplay.innerHTML = `✅ Autenticado como: <strong>${usuarioAtual.email}</strong> ${isAdmin ? ' (Modo Admin Ativo)' : ''}`;
                 }
             } else {
                 authSection.innerHTML = ``;
@@ -809,32 +927,66 @@
 
         function abrirModal() {
             document.getElementById('loginModal').classList.add('active');
+            voltarEtapaEmail();
         }
 
         function fecharModal() {
             document.getElementById('loginModal').classList.remove('active');
         }
 
-        async function fazerLogin() {
-            const email = document.getElementById('loginEmail').value;
-            const senha = document.getElementById('loginPassword').value;
-            const { error } = await supabaseClient.auth.signInWithPassword({ email, password: senha });
-            if (error) { alert('Erro: ' + error.message); } else { fecharModal(); limparCamposLogin(); await verificarUsuario(); carregarFotos(); }
+        /* 3) Ajuste: Envio de e-mail OTP simplificado via Supabase */
+        async function enviarCodigoOTP() {
+            const email = document.getElementById('loginEmail').value.trim();
+            if (!email) { alert('Por favor, informe seu e-mail.'); return; }
+
+            const { error } = await supabaseClient.auth.signInWithOtp({
+                email: email,
+                options: { shouldCreateUser: true } // Cria a conta dinamicamente se for o primeiro acesso
+            });
+
+            if (error) {
+                alert('Erro ao enviar e-mail: ' + error.message);
+            } else {
+                alert('Código enviado! Verifique sua caixa de entrada ou spam.');
+                document.getElementById('otpEtapaEmail').style.display = 'none';
+                document.getElementById('otpEtapaToken').style.display = 'block';
+            }
         }
 
-        async function fazerCadastro() {
-            const email = document.getElementById('loginEmail').value;
-            const senha = document.getElementById('loginPassword').value;
-            const { error } = await supabaseClient.auth.signUp({ email, password: senha });
-            if (error) { alert('Erro: ' + error.message); } else { alert('Cadastro feito com sucesso! Pode entrar.'); fecharModal(); limparCamposLogin(); }
+        async function verificarCodigoOTP() {
+            const email = document.getElementById('loginEmail').value.trim();
+            const token = document.getElementById('loginToken').value.trim();
+            if (!token) { alert('Insira o código de validação recebido.'); return; }
+
+            const { data, error } = await supabaseClient.auth.verifyOtp({
+                email,
+                token,
+                type: 'magiclink'
+            });
+
+            if (error) {
+                alert('Código inválido ou expirado: ' + error.message);
+            } else {
+                fecharModal();
+                document.getElementById('loginToken').value = '';
+                await verificarUsuario();
+                carregarFotos();
+                carregarDepoimentos();
+            }
         }
 
-        function limparCamposLogin() {
-            document.getElementById('loginEmail').value = '';
-            document.getElementById('loginPassword').value = '';
+        function voltarEtapaEmail() {
+            document.getElementById('otpEtapaEmail').style.display = 'block';
+            document.getElementById('otpEtapaToken').style.display = 'none';
+            document.getElementById('loginToken').value = '';
         }
 
-        async function fazerLogout() { await supabaseClient.auth.signOut(); await verificarUsuario(); carregarFotos(); }
+        async function fazerLogout() { 
+            await supabaseClient.auth.signOut(); 
+            await verificarUsuario(); 
+            carregarFotos(); 
+            carregarDepoimentos();
+        }
 
         async function enviarDepoimento() {
             const nome = document.getElementById('nomeDepoimento').value.trim();
@@ -851,37 +1003,51 @@
             }
         }
 
+        /* 2) Ajuste: Listagem incluindo botão facilitado para deletar depoimento se for Administrador */
         async function carregarDepoimentos() {
             const { data, error } = await supabaseClient.from('depoimentos').select('*').order('criado_em', { ascending: false });
             const listaDiv = document.getElementById('listaDepoimentos');
             if (error) { listaDiv.innerHTML = `<p style="text-align:center; color: #ff6b6b;">Erro ao buscar depoimentos.</p>`; return; }
             if (!data || data.length === 0) { listaDiv.innerHTML = '<p style="text-align:center; opacity:0.5;">✨ Seja a primeira pessoa a deixar uma homenagem!</p>'; return; }
+            
             listaDiv.innerHTML = `<div class="testimonials-grid">${data.map(d => `
                 <div class="testimonial-card">
                     <div class="testimonial-author">⭐ ${d.nome}</div>
                     <p style="color: rgba(255,255,255,0.85); font-size:0.95rem;">"${d.depoimento}"</p>
                     <p style="font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 15px;"><i class="far fa-calendar-alt"></i> ${new Date(d.criado_em).toLocaleDateString('pt-BR')}</p>
+                    ${isAdmin ? `<button class="btn-admin-delete" onclick="deletarDepoimento(${d.id})"><i class="fas fa-trash-alt"></i> Excluir Comentário</button>` : ''}
                 </div>`).join('')}</div>`;
         }
 
+        /* 2) Ajuste: Função para remoção simplificada de comentários (Depoimentos) */
+        async function deletarDepoimento(id) {
+            if (confirm('Administrador, deseja mesmo remover de forma definitiva este comentário?')) {
+                const { error } = await supabaseClient.from('depoimentos').delete().eq('id', id);
+                if (error) alert('Erro ao excluir: ' + error.message);
+                carregarDepoimentos();
+            }
+        }
+
+        /* 2) Ajuste: Listagem incluindo botão facilitado na foto caso logado como administrador */
         async function carregarFotos() {
             const { data, error } = await supabaseClient.from('fotos').select('*').order('criado_em', { ascending: false });
             const listaDiv = document.getElementById('listaFotos');
             if (error) { listaDiv.innerHTML = `<p style="text-align:center; color: #ff6b6b;">Erro ao carregar o mural.</p>`; return; }
             if (!data || data.length === 0) { listaDiv.innerHTML = '<p style="text-align:center; opacity: 0.5;">📸 Nenhuma foto adicionada ainda. Publique a primeira!</p>'; return; }
+            
             listaDiv.innerHTML = `<div class="fotos-grid">${data.map(f => `
                 <div class="foto-card">
                     <img src="${f.foto_url}" alt="Recordação">
                     <div class="foto-info">
                         <div class="foto-nome">⭐ ${f.nome || 'Anônimo'}</div>
                         <p style="font-size: 11px; margin-top: 8px; opacity:0.5;">📅 ${new Date(f.criado_em).toLocaleDateString('pt-BR')}</p>
-                        ${usuarioAtual ? `<button class="btn-delete" onclick="deletarFoto(${f.id})"><i class="fas fa-trash-alt"></i></button>` : ''}
+                        ${isAdmin ? `<button class="btn-admin-delete" onclick="deletarFoto(${f.id})"><i class="fas fa-trash-alt"></i> Remover Foto</button>` : ''}
                     </div>
                 </div>`).join('')}</div>`;
         }
 
         async function enviarFoto() {
-            if (!usuarioAtual) { alert('Sessão expirada. Faça login novamente.'); abrirModal(); return; }
+            if (!usuarioAtual) { alert('Sessão expirada ou não autenticada. Informe o e-mail novamente.'); abrirModal(); return; }
             const fotoFile = document.getElementById('fotoFile').files[0];
             if (!fotoFile) { alert('Selecione um arquivo de imagem.'); return; }
             const nome = usuarioAtual.email.split('@')[0];
@@ -901,19 +1067,63 @@
         }
 
         async function deletarFoto(id) {
-            if (confirm('Deseja mesmo remover permanentemente esta imagem do mural?')) {
-                await supabaseClient.from('fotos').delete().eq('id', id);
+            if (confirm('Administrador, deseja mesmo remover permanentemente esta imagem do mural?')) {
+                const { error } = await supabaseClient.from('fotos').delete().eq('id', id);
+                if (error) alert('Erro ao excluir foto: ' + error.message);
                 carregarFotos();
             }
         }
 
-        function compartilharFacebook() { window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, '_blank'); }
-        function compartilharWhatsApp() { window.open(`https://wa.me/?text=${encodeURIComponent('Tributo Oficial ao Bar do Kblo - Visite em: ' + window.location.href)}`, '_blank'); }
-        function compartilharTwitter() { window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent('Confira as memórias e o tributo ao Bar do Kblo')}&url=${encodeURIComponent(window.location.href)}`, '_blank'); }
+        /* 6) Ajuste: Lógica independente para ler e incrementar o contador de reproduções da música */
+        async function obterContadorReproducoes() {
+            // Tenta consultar a métrica do banco
+            const { data, error } = await supabaseClient.from('metricas').select('valor').eq('chave', 'reproducoes_musica').single();
+            if (!error && data) {
+                document.getElementById('contadorViews').textContent = Number(data.valor).toLocaleString('pt-BR');
+            } else {
+                document.getElementById('contadorViews').textContent = '0';
+            }
+        }
 
+        let processandoCliqueMusica = false;
+        async function registrarReproducao() {
+            if (processandoCliqueMusica) return;
+            processandoCliqueMusica = true;
+
+            // Executa RPC nativa do Supabase que incrementa o valor atômico contido na tabela métricas independente de onde venha o acesso
+            // IMPORTANTE: Certifique-se de possuir a function correspondente criada no editor SQL do seu Supabase
+            const { error } = await supabaseClient.rpc('incrementar_contador_musica');
+            
+            if (!error) {
+                await obterContadorReproducoes();
+            }
+            
+            // Timeout preventivo para evitar disparos contínuos no mesmo clique de pause/play
+            setTimeout(() => { processandoCliqueMusica = false; }, 4000);
+        }
+
+        /* 4) Ajuste: Links corrigidos para direcionar precisamente para a URL base principal (Home com a música) */
+        function obterUrlPrincipal() {
+            return window.location.origin + window.location.pathname;
+        }
+
+        function compartilharFacebook() { 
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(obterUrlPrincipal())}`, '_blank'); 
+        }
+        
+        function compartilharWhatsApp() { 
+            window.open(`https://wa.me/?text=${encodeURIComponent('Ouça a música oficial e relembre os momentos no Tributo ao Bar do Kblo! Visite em: ' + obterUrlPrincipal())}`, '_blank'); 
+        }
+
+        function compartilharInstagram() {
+            alert('Para compartilhar no Instagram:\n1. Copie o endereço principal: ' + obterUrlPrincipal() + '\n2. Cole no seu link dos Stories ou na sua Bio para que seus amigos escutem a música!');
+        }
+
+        // Inicializadores de Página
         verificarUsuario();
         carregarDepoimentos();
         carregarFotos();
+        obterContadorReproducoes();
     </script>
 </body>
 </html>
