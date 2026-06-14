@@ -683,6 +683,20 @@
             color: rgba(255,255,255,0.5);
         }
 
+        .footer-contact {
+            margin-bottom: 15px;
+        }
+
+        .footer-contact a {
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-contact a:hover {
+            color: #8a9eff;
+        }
+
         .mensagem-sucesso {
             background: rgba(46, 204, 113, 0.15);
             border: 1px solid rgba(46, 204, 113, 0.3);
@@ -870,6 +884,7 @@
             <a href="#depoimentos" onclick="toggleMenu()">DEPOIMENTOS</a>
             <a href="#fotos" onclick="toggleMenu()">FOTOS</a>
             <a href="#sobre" onclick="toggleMenu()">SOBRE</a>
+            <a href="#" onclick="contatarAdmin(); toggleMenu();">CONTATO</a>
             <span class="admin-trigger" onclick="promptAdmin()">Painel</span>
         </div>
     </nav>
@@ -1023,6 +1038,12 @@
     </section>
 
     <footer class="footer">
+        <p class="footer-contact">
+            <a href="#" onclick="contatarAdmin()">
+                <i class="fas fa-envelope" style="color: #8a9eff; margin-right: 5px;"></i>
+                Solicitar remoção de conteúdo
+            </a>
+        </p>
         <p style="max-width: 500px; margin: 0 auto 20px; line-height: 1.6;">
             <i class="fas fa-shield-alt" style="color: #8a9eff;"></i> 
             Cada pessoa é de total responsabilidade jurídica pelo conteúdo publicado.
@@ -1226,6 +1247,12 @@
             }
         }
 
+        function contatarAdmin() {
+            const assunto = encodeURIComponent('Solicitação - Tributo Bar do Kblo');
+            const corpo = encodeURIComponent('Olá, gostaria de solicitar:\n\nTipo (foto/depoimento):\nMotivo:\nMeu e-mail para contato:');
+            window.location.href = `mailto:${EMAIL_ADMINISTRADOR}?subject=${assunto}&body=${corpo}`;
+        }
+
         document.getElementById('textoDepoimento')?.addEventListener('input', function() {
             const charCount = this.value.length;
             document.getElementById('charCount').textContent = charCount;
@@ -1311,33 +1338,69 @@
                     return;
                 }
                 
+                const depoimentosVisiveis = 5;
+                const mostrarVerMais = data.length > depoimentosVisiveis;
+                const depoimentosIniciais = data.slice(0, depoimentosVisiveis);
+                
+                window.todosDepoimentos = data;
+                window.mostrandoTodos = false;
+                
                 listaDiv.innerHTML = `
-                    <div class="testimonials-grid">
-                        ${data.map(d => `
-                            <div class="testimonial-card">
-                                <div class="testimonial-author">⭐ ${d.nome}</div>
-                                <p class="testimonial-text">"${d.depoimento}"</p>
-                                <p class="testimonial-date">
-                                    <i class="far fa-calendar-alt"></i> 
-                                    ${new Date(d.criado_em).toLocaleDateString('pt-BR', {
-                                        day: 'numeric',
-                                        month: 'long',
-                                        year: 'numeric'
-                                    })}
-                                </p>
-                                ${adminAtivo ? `
-                                    <button class="btn-delete" onclick="deletarDepoimento(${d.id})" title="Remover depoimento">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                ` : ''}
-                            </div>
-                        `).join('')}
-                    </div>`;
+                    <div class="testimonials-grid" id="depoimentosGrid">
+                        ${depoimentosIniciais.map(d => criarDepoimentoCard(d)).join('')}
+                    </div>
+                    ${mostrarVerMais ? `
+                        <div style="text-align: center; margin-top: 30px;">
+                            <button class="btn-primary" onclick="toggleVerMaisDepoimentos()" id="btnVerMaisDepoimentos">
+                                <i class="fas fa-comments"></i> VER MAIS DEPOIMENTOS (${data.length - depoimentosVisiveis} restantes)
+                            </button>
+                        </div>
+                    ` : ''}
+                `;
             } catch (error) {
                 listaDiv.innerHTML = `
                     <p style="text-align:center; color: #ff6b6b;">
                         <i class="fas fa-exclamation-circle"></i> Erro ao carregar depoimentos: ${error.message}
                     </p>`;
+            }
+        }
+
+        function criarDepoimentoCard(d) {
+            return `
+                <div class="testimonial-card">
+                    <div class="testimonial-author">⭐ ${d.nome}</div>
+                    <p class="testimonial-text">"${d.depoimento}"</p>
+                    <p class="testimonial-date">
+                        <i class="far fa-calendar-alt"></i> 
+                        ${new Date(d.criado_em).toLocaleDateString('pt-BR', {
+                            day: 'numeric',
+                            month: 'long',
+                            year: 'numeric'
+                        })}
+                    </p>
+                    ${adminAtivo ? `
+                        <button class="btn-delete" onclick="deletarDepoimento(${d.id})" title="Remover depoimento">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        function toggleVerMaisDepoimentos() {
+            const depoimentosGrid = document.getElementById('depoimentosGrid');
+            const btnVerMais = document.getElementById('btnVerMaisDepoimentos');
+            const depoimentosVisiveis = 5;
+            
+            if (window.mostrandoTodos) {
+                const depoimentosIniciais = window.todosDepoimentos.slice(0, depoimentosVisiveis);
+                depoimentosGrid.innerHTML = depoimentosIniciais.map(d => criarDepoimentoCard(d)).join('');
+                btnVerMais.innerHTML = `<i class="fas fa-comments"></i> VER MAIS DEPOIMENTOS (${window.todosDepoimentos.length - depoimentosVisiveis} restantes)`;
+                window.mostrandoTodos = false;
+            } else {
+                depoimentosGrid.innerHTML = window.todosDepoimentos.map(d => criarDepoimentoCard(d)).join('');
+                btnVerMais.innerHTML = '<i class="fas fa-chevron-up"></i> MOSTRAR MENOS';
+                window.mostrandoTodos = true;
             }
         }
 
@@ -1507,35 +1570,71 @@
                     return;
                 }
                 
+                const fotosVisiveis = 5;
+                const mostrarVerMais = data.length > fotosVisiveis;
+                const fotosIniciais = data.slice(0, fotosVisiveis);
+                
+                window.todasFotos = data;
+                window.mostrandoTodas = false;
+                
                 listaDiv.innerHTML = `
-                    <div class="fotos-grid">
-                        ${data.map(f => `
-                            <div class="foto-card" onclick="abrirModal('${f.foto_url}')">
-                                <img src="${f.foto_url}" alt="Recordação do Bar do Kblo" loading="lazy">
-                                <div class="foto-overlay">
-                                    <div class="foto-nome">⭐ Enviado por: ${f.user_email ? f.user_email.split('@')[0] : 'Anônimo'}</div>
-                                    <div class="foto-data">
-                                        <i class="far fa-calendar-alt"></i> 
-                                        ${new Date(f.criado_em).toLocaleDateString('pt-BR', {
-                                            day: 'numeric',
-                                            month: 'long',
-                                            year: 'numeric'
-                                        })}
-                                    </div>
-                                </div>
-                                ${adminAtivo ? `
-                                    <button class="btn-delete" onclick="event.stopPropagation(); deletarFoto(${f.id})" title="Remover foto">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                ` : ''}
-                            </div>
-                        `).join('')}
-                    </div>`;
+                    <div class="fotos-grid" id="fotosGrid">
+                        ${fotosIniciais.map(f => criarFotoCard(f)).join('')}
+                    </div>
+                    ${mostrarVerMais ? `
+                        <div style="text-align: center; margin-top: 30px;">
+                            <button class="btn-primary" onclick="toggleVerMaisFotos()" id="btnVerMaisFotos">
+                                <i class="fas fa-images"></i> VER MAIS FOTOS (${data.length - fotosVisiveis} restantes)
+                            </button>
+                        </div>
+                    ` : ''}
+                `;
             } catch (error) {
                 listaDiv.innerHTML = `
                     <p style="text-align:center; color: #ff6b6b;">
                         <i class="fas fa-exclamation-circle"></i> Erro ao carregar fotos: ${error.message}
                     </p>`;
+            }
+        }
+
+        function criarFotoCard(f) {
+            return `
+                <div class="foto-card" onclick="abrirModal('${f.foto_url}')">
+                    <img src="${f.foto_url}" alt="Recordação do Bar do Kblo" loading="lazy">
+                    <div class="foto-overlay">
+                        <div class="foto-nome">⭐ Enviado por: ${f.user_email ? f.user_email.split('@')[0] : 'Anônimo'}</div>
+                        <div class="foto-data">
+                            <i class="far fa-calendar-alt"></i> 
+                            ${new Date(f.criado_em).toLocaleDateString('pt-BR', {
+                                day: 'numeric',
+                                month: 'long',
+                                year: 'numeric'
+                            })}
+                        </div>
+                    </div>
+                    ${adminAtivo ? `
+                        <button class="btn-delete" onclick="event.stopPropagation(); deletarFoto(${f.id})" title="Remover foto">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        function toggleVerMaisFotos() {
+            const fotosGrid = document.getElementById('fotosGrid');
+            const btnVerMais = document.getElementById('btnVerMaisFotos');
+            const fotosVisiveis = 5;
+            
+            if (window.mostrandoTodas) {
+                const fotosIniciais = window.todasFotos.slice(0, fotosVisiveis);
+                fotosGrid.innerHTML = fotosIniciais.map(f => criarFotoCard(f)).join('');
+                btnVerMais.innerHTML = `<i class="fas fa-images"></i> VER MAIS FOTOS (${window.todasFotos.length - fotosVisiveis} restantes)`;
+                window.mostrandoTodas = false;
+            } else {
+                fotosGrid.innerHTML = window.todasFotos.map(f => criarFotoCard(f)).join('');
+                btnVerMais.innerHTML = '<i class="fas fa-chevron-up"></i> MOSTRAR MENOS';
+                window.mostrandoTodas = true;
             }
         }
 
