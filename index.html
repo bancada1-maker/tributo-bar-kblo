@@ -149,12 +149,12 @@
         }
 
         .kblo-foto {
-            width: 160px;
-            height: 160px;
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #8a9eff;
-            box-shadow: 0 0 40px rgba(138,158,255,0.3);
+            border: 4px solid #8a9eff;
+            box-shadow: 0 0 50px rgba(138,158,255,0.4);
             margin-bottom: 30px;
             animation: fadeInUp 0.8s ease;
         }
@@ -893,8 +893,8 @@
             }
             
             .kblo-foto {
-                width: 130px;
-                height: 130px;
+                width: 160px;
+                height: 160px;
             }
         }
     </style>
@@ -1035,8 +1035,8 @@
                     <i class="fas fa-check-circle"></i> Foto enviada com sucesso!
                 </div>
                 <div class="form-group">
-                    <label for="fotoEmail">Seu E-mail (apenas para controle interno) *</label>
-                    <input type="email" id="fotoEmail" placeholder="seu@email.com">
+                    <label for="fotoNome">Seu nome ou apelido *</label>
+                    <input type="text" id="fotoNome" placeholder="Como você quer aparecer?" maxlength="50">
                 </div>
                 <div class="form-group">
                     <label>Selecione a imagem *</label>
@@ -1055,7 +1055,7 @@
                 </button>
                 <div class="aviso-responsabilidade">
                     <i class="fas fa-exclamation-triangle"></i> 
-                    Cada pessoa é responsável pelo conteúdo que publica. O e-mail serve apenas para controle interno do site.
+                    Cada pessoa é responsável pelo conteúdo que publica.
                 </div>
             </div>
         </div>
@@ -1492,22 +1492,17 @@
         }
 
         async function enviarFoto() {
-            const emailInput = document.getElementById('fotoEmail').value.trim();
+            const nomeInput = document.getElementById('fotoNome').value.trim();
             const fotoFile = document.getElementById('fotoFile').files[0];
             const btn = document.getElementById('btnFoto');
             
-            if (!emailInput) {
-                alert('⚠️ Por favor, informe seu e-mail para controle de autoria.');
+            if (!nomeInput) {
+                alert('⚠️ Por favor, informe seu nome ou apelido.');
                 return;
             }
             
             if (!fotoFile) {
                 alert('⚠️ Selecione uma imagem para enviar.');
-                return;
-            }
-            
-            if (!validarEmail(emailInput)) {
-                alert('⚠️ Por favor, informe um e-mail válido.');
                 return;
             }
             
@@ -1545,8 +1540,8 @@
                 const { error: insertError } = await supabaseClient
                     .from('fotos')
                     .insert([{ 
-                        nome: emailInput.split('@')[0], 
-                        user_email: emailInput, 
+                        nome: nomeInput, 
+                        user_email: nomeInput, 
                         foto_url, 
                         aprovado: true 
                     }]);
@@ -1554,7 +1549,7 @@
                 if (insertError) throw insertError;
                 
                 document.getElementById('fotoFile').value = '';
-                document.getElementById('fotoEmail').value = '';
+                document.getElementById('fotoNome').value = '';
                 document.getElementById('previewContainer').style.display = 'none';
                 document.getElementById('fileTrigger').innerHTML = '<i class="fas fa-cloud-upload-alt"></i> Clique para escolher a foto';
                 
@@ -1572,11 +1567,6 @@
                 btn.disabled = false;
                 btn.innerHTML = '<i class="fas fa-upload"></i> ENVIAR FOTO';
             }
-        }
-
-        function validarEmail(email) {
-            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return re.test(email);
         }
 
         async function carregarFotos() {
@@ -1632,7 +1622,7 @@
                 <div class="foto-card" onclick="abrirModal('${f.foto_url}')">
                     <img src="${f.foto_url}" alt="Recordação do Bar do Kblo" loading="lazy">
                     <div class="foto-overlay">
-                        <div class="foto-nome">⭐ Enviado por: ${f.user_email ? f.user_email.split('@')[0] : 'Anônimo'}</div>
+                        <div class="foto-nome">⭐ Enviado por: ${f.user_email || 'Anônimo'}</div>
                         <div class="foto-data">
                             <i class="far fa-calendar-alt"></i> 
                             ${new Date(f.criado_em).toLocaleDateString('pt-BR', {
